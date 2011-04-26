@@ -67,11 +67,9 @@ end
 
 configure do
   #setup MySQL connection:  
-  DataMapper::Logger.new('log/datamapper.log', :debug)
+  DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3://my.db')
   
-  @config = YAML::load( File.open( 'settings.yml' ) )
-  @connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
-  DataMapper.setup(:default, @connection)
+  
   DataMapper.auto_upgrade!
   #drops table and rebuilds
   #DataMapper.auto_migrate!
