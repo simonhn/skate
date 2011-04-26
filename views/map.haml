@@ -1,0 +1,38 @@
+:javascript
+  function drawMarker(place, map){
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(place["lat"], place["long"]),
+      map: map, 
+      title: "name"
+      });
+      var photo = ""
+      if(place["photos"]["0"] != null){
+        var photo = '<img src="'+place["photos"]["0"]["url_s"]+'"/>'
+      }
+      var contentString = '<div class="infowindow"><span><a href="/spot/' + place["slug"] + '">' + place["title"] + '</a></span>' + "<br>" + place["address"] + "<br>" + place["teaser"] + '<br>'+photo+'</div>';
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+
+      google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(map, marker);
+      });
+
+      return marker;
+    }
+    
+    $(document).ready(function(){
+      map.init();
+      $.get('/georss.json', function(json){
+        data = $.parseJSON(json);
+        calcRoute(data);
+        
+        });
+    });
+%div{:id=>'map_canvas', :style=>"height:600px;width:860px;"}
+- if @spots && @spots.length > 0
+- @spots.each do |spot|
+  %article.spot
+    %a{:href => "/spot/#{spot.slug}", :title => "View a spot with #{spot.title}."}
+      %h2.title= spot.title
+    %p.teaser= spot.teaser

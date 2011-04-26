@@ -1,0 +1,12 @@
+- if @spots && @spots.length > 0
+	%article.spot.latest
+		%a{:href => "/spot/#{@spots[0].slug}", :title => "View a spot with #{@spots[0].title}."}
+			-#%img{:src => @spots[0].img_url, :width => 500, :height => 335, :alt => @spots[0].title, :class => 'portrait'}
+			%h2.title= @spots[0].title
+		%p.teaser= @spots[0].teaser	
+	- @spots.to_a[1..-1].each do |spot|
+		%article.spot.recent
+			%a{:href => "/spot/#{spot.slug}", :title => "View a spot with #{spot.title}."}
+				-#%img{:src => spot.img_url, :width => 500, :height => 100, :alt => spot.title, :class => 'thumbnail'}
+				%h2.title= spot.title				
+			%p.teaser= spot.teaser
