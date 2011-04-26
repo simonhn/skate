@@ -2,8 +2,9 @@ sinatra
 haml
 datamapper
 flickraw-cached
-youtube_g
+youtube-g
 builder
 RedCloth
 dm-core
 dm-migrations
+haml
