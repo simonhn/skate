@@ -243,16 +243,5 @@ get '/populate' do
   @spot2.save
   @spot3.save
   
-  @photo1 = Photo.get(86)
-  @spot1.photos << @photo1
   
-  @photo2 = Photo.get(85)
-  @spot2.photos << @photo2
-  
-  @photo3 = Photo.get(84)
-  @spot3.photos << @photo3
-  
-  @spot1.save
-  @spot2.save
-  @spot3.save
 end
