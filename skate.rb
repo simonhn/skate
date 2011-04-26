@@ -69,10 +69,10 @@ configure do
   #setup MySQL connection:  
   DataMapper.setup(:default,'postgres://oizollcote:d1yPMObgwdxtm0zi_YSu@ec2-50-17-218-236.compute-1.amazonaws.com/oizollcote')
   
-  DataMapper::Logger.new('log/datamapper.log', :debug)
+  #DataMapper::Logger.new('log/datamapper.log', :debug)
   
-  @config = YAML::load( File.open( 'settings.yml' ) )
-  @connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
+  #@config = YAML::load( File.open( 'settings.yml' ) )
+  #@connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
   #DataMapper.setup(:default, @connection)
   #DataMapper.auto_upgrade!
   #drops table and rebuilds
