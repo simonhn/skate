@@ -6,7 +6,7 @@ require 'flickraw-cached'
 #require 'vimeo'
 require 'builder'
 require 'RedCloth'
-
+require 'dm-postgres-adapter'
 #spot: et navn, en teaser tekst, en beskrivelses tekst, en geo lokation (latiture/longtitude), en adresse, et antal medier (foto, video), #links, en dato, et hashtag (saa folk kan twitte om netop det spot og vi kan evt. bruge det til at fetche flickr og youtube stuff der er #tagget med det tag? bare en ide). kan et spot forresten vaere en del af flere ruter?
 #rute: samling af spots, en raekkefoelge af spots (saa vi ved hvordan vi skal tegne kortet), en beskrivelse, en teaser tekst.
 
@@ -67,12 +67,16 @@ end
 
 configure do
   #setup MySQL connection:  
-  DataMapper.setup(:default, ENV['DATABASE_URL'] || 'sqlite3://my.db')
+  DataMapper.setup(:default,'postgres://oizollcote:d1yPMObgwdxtm0zi_YSu@ec2-50-17-218-236.compute-1.amazonaws.com/oizollcote')
   
+  DataMapper::Logger.new('log/datamapper.log', :debug)
   
-  DataMapper.auto_upgrade!
+  @config = YAML::load( File.open( 'settings.yml' ) )
+  @connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
+  #DataMapper.setup(:default, @connection)
+  #DataMapper.auto_upgrade!
   #drops table and rebuilds
-  #DataMapper.auto_migrate!
+  DataMapper.auto_migrate!
   FlickRaw.api_key="26a3aea48d909153a7e4867c6155c00a"
   FlickRaw.shared_secret="1f521014a6c266e9"
   set :haml, {:format => :html5}
