@@ -1,1 +1,9 @@
 sinatra
+haml
+datamapper
+flickraw-cached
+youtube_g
+builder
+RedCloth
+dm-core
+dm-migrations
