@@ -74,9 +74,9 @@ configure do
   #@config = YAML::load( File.open( 'settings.yml' ) )
   #@connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
   #DataMapper.setup(:default, @connection)
-  #DataMapper.auto_upgrade!
+  DataMapper.auto_upgrade!
   #drops table and rebuilds
-  DataMapper.auto_migrate!
+  #DataMapper.auto_migrate!
   FlickRaw.api_key="26a3aea48d909153a7e4867c6155c00a"
   FlickRaw.shared_secret="1f521014a6c266e9"
   set :haml, {:format => :html5}
