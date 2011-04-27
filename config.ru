@@ -1,5 +1,5 @@
 require 'rubygems'
 require 'sinatra'
-require 'skate'
+require './skate'
 
 run Sinatra::Application
