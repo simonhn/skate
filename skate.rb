@@ -71,7 +71,7 @@ configure do
   
   #DataMapper::Logger.new('log/datamapper.log', :debug)
   
-  @config = YAML::load( File.open( 'settings.yml' ) )
+  @config = YAML::load( File.open( 'config/settings.yml' ) )
   @connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
   DataMapper.setup(:default, @connection)
   DataMapper.auto_upgrade!
@@ -231,7 +231,7 @@ get '/populate' do
   @route1 = Route.first_or_create(
           :slug         => 'oerestaden',
           :title        => 'En rute gennem oerestaden',
-          :teaser       => 'Klart den næstfedeste rute',
+          :teaser       => 'Klart den naestfedeste rute',
           :body         => 'En lang beskrivelse af denne fantastiske rute'
           )
 
