@@ -20,8 +20,7 @@
     %link{:href=>'http://fonts.googleapis.com/css?family=Crimson+Text&subset=latin', :rel=>'stylesheet', :type=>'text/css'}
 
     
-    :javascript
-      
+    :javascript 
       //$(document).ready(function() {
         //$('#foto').masonry({ columnWidth: 300 });
       //});
@@ -115,7 +114,7 @@
               }
             });
           }
-          function drawMarker(place){
+        function drawMarker(place){
           var marker = new google.maps.Marker({
             position: new google.maps.LatLng(place["lat"], place["long"]),
             map: map, 
@@ -141,7 +140,6 @@
           }
 
         }
-        
         function showPlaces(directionResult) {
           for (i=0;i<directionResult.length;i++)
           {
@@ -154,7 +152,6 @@
             var contentString = '<div class="infowindow"><span><a href="/spot/' + directionResult[i]["slug"] + '">' + directionResult[i]["title"] + '</a></span>' + "<br>" + directionResult[i]["address"] + "<br>" + directionResult[i]["teaser"] + '</div>';
              attachInstructionText(marker,contentString); 
           }
-
         }
 
         function attachInstructionText(marker, text) {
@@ -163,19 +160,11 @@
             stepDisplay.open(map, marker);
           });
         }
+  
   %body
     %header
-      %h1
-        %a{:href => "/", :title => "en guide til skating i cph."} copenhagen spot guide
-      %p
-      
-    %nav
-      %ul
-    %div{:id => 'wrapper'}
-      = yield
-    %div{:id => 'footer_wrapper'}
-      %footer
-        %div{:id => 'footer_left'}
-          %h2 CONTACT & INFO
-        %div{:id => 'footer_right'}
-          %h2 ALL SPOTS
+      %a{:href => "/", :title => "en guide til skating i cph."}
+        %img{:src => "/images/logo.png", :width => 350}
+      -#%h1
+        -#%a{:href => "/", :title => "en guide til skating i cph."} copenhagen spot guide
+    = yield

@@ -1,0 +1,20 @@
+%div{:id => 'wrapper'}
+  %form{:method => 'post', :action => "/route/#{@route.new? ? 'new' : @route.slug + '/edit'}"}
+    %p
+      %label{:for => 'slug'}Slug:
+      %br
+      %input{:type => 'text', :name => 'slug', :value => @route.slug}
+    %p
+      %label{:for => 'title'}Title:
+      %br
+      %input{:type => 'text', :name => 'title', :value => @route.title}
+    %p
+      %label{:for => 'teaser'}Teaser:
+      %br
+      %input{:type => 'text', :name => 'teaser', :value => @route.teaser}
+    %p
+      %label{:for => 'body'}Body:
+      %br
+      %textarea{:name => 'body', :rows => 15, :cols => 88}= @route.body
+    %p
+      %input{:type => 'submit', :value => "Go"}

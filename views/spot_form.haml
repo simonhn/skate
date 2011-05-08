@@ -1,37 +1,38 @@
-%form{:method => 'post', :action => "/spot/#{@spot.new? ? 'new' : @spot.slug + '/edit'}"}
-  %p
-    %label{:for => 'slug'}Slug:
-    %br
-    %input{:type => 'text', :name => 'slug', :value => @spot.slug}
-  %p
-    %label{:for => 'title'}Title:
-    %br
-    %input{:type => 'text', :name => 'title', :value => @spot.title}
-  %p
-    %label{:for => 'teaser'}Teaser:
-    %br
-    %input{:type => 'text', :name => 'teaser', :value => @spot.teaser}
-  %p
-    %label{:for => 'lat'}Latitude:
-    %br
-    %input{:type => 'text', :name => 'lat', :value => @spot.lat}
-  %p
-    %label{:for => 'long'}Longitude:
-    %br
-    %input{:type => 'text', :name => 'long', :value => @spot.long}
-  %p
-    %label{:for => 'body'}Body:
-    %br
-    %textarea{:name => 'body', :rows => 15, :cols => 88}= @spot.body
-  %p
-    %label{:for => 'sequence'}Sequence:
-    %br
-    %input{:type => 'text', :name => 'sequence', :value =>  @spot.sequence}
-  %p
-    %label{:for => 'status'}Rute:
-    %br
-    %select{:name => 'route'}
-      - @routes.each do |route|
-        %option{:value => route.slug, :selected => route.slug}= route.title
-  %p
-    %input{:type => 'submit', :value => "Go"}
+%div{:id => 'wrapper'}
+  %form{:method => 'post', :action => "/spot/#{@spot.new? ? 'new' : @spot.slug + '/edit'}"}
+    %p
+      %label{:for => 'slug'}Slug:
+      %br
+      %input{:type => 'text', :name => 'slug', :value => @spot.slug}
+    %p
+      %label{:for => 'title'}Title:
+      %br
+      %input{:type => 'text', :name => 'title', :value => @spot.title}
+    %p
+      %label{:for => 'teaser'}Teaser:
+      %br
+      %input{:type => 'text', :name => 'teaser', :value => @spot.teaser}
+    %p
+      %label{:for => 'lat'}Latitude:
+      %br
+      %input{:type => 'text', :name => 'lat', :value => @spot.lat}
+    %p
+      %label{:for => 'long'}Longitude:
+      %br
+      %input{:type => 'text', :name => 'long', :value => @spot.long}
+    %p
+      %label{:for => 'body'}Body:
+      %br
+      %textarea{:name => 'body', :rows => 15, :cols => 88}= @spot.body
+    %p
+      %label{:for => 'sequence'}Sequence:
+      %br
+      %input{:type => 'text', :name => 'sequence', :value =>  @spot.sequence}
+    %p
+      %label{:for => 'status'}Rute:
+      %br
+      %select{:name => 'route'}
+        - @routes.each do |route|
+          %option{:value => route.slug, :selected => route.slug}= route.title
+    %p
+      %input{:type => 'submit', :value => "Go"}

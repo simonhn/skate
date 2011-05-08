@@ -82,7 +82,7 @@ configure do
 end
 
 get '/' do
-  @spots = Spot.all  
+  @route = Route.first
   haml :map
 end
 
@@ -91,6 +91,11 @@ get '/spot/new' do
   @spot = Spot.new(params)
   @routes = Route.all
   haml :spot_form
+end
+
+get '/spot/:slug/delete' do
+  @spot = Spot.first(:slug => params[:slug])
+  @spot.destroy
 end
 
 post '/spot/new' do
@@ -140,7 +145,7 @@ end
 get '/spot/:slug' do
   @spot = Spot.first(:slug => params[:slug])
   puts RedCloth.new(@spot.body).to_html.inspect
-  
+  @spots = Spot.all
   @route = @spot.routes.first
   @photos = @spot.photos
   if @photos.count == 0
@@ -158,6 +163,31 @@ get '/spot/:slug' do
   haml :spot
 end
 
+get '/route/:slug/edit' do
+  @route = Route.first(:slug => params[:slug])
+  raise not_found unless @route
+  haml :route_form
+end
+
+post '/route/:slug/edit' do
+  @route = Route.first(:slug => params[:slug])
+  raise not_found unless @route
+  
+  @route.attributes = {
+    :title      => params["title"],
+    :teaser     => params["teaser"],
+    :body       => params["body"]
+  }
+    
+  @route.save
+  redirect "/"
+end
+
+get '/admin' do
+   @spots = Spot.all
+   @routes = Route.all
+   haml :admin
+end
 
 get '/georss.json' do
    @spots = Spot.all(:order => [:sequence.asc])

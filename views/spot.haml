@@ -1,6 +1,4 @@
 :javascript
-  
-  
   $(document).ready(function(){ 
     var place = (#{@spot.to_json});
     var latlng = new google.maps.LatLng(place["lat"], place["long"]);
@@ -28,29 +26,37 @@
      marker.setMap(map);
      var switchTo5x=true;
      stLight.options({publisher:'1bef05f7-1745-4681-a2b4-74155bc4ae0a'});
-  });
+  }); 
+%div{:id => 'wrapper'}
+  %aside{:id => 'sidebar'}
+    %div{:id=>'map_canvas', :style=>"height:335px;width:300px;"}
+    %span.st_facebook_button{:displayText=>'Facebook'}
+    %span.st_twitter_button{:displayText=>'Tweet'}
+    %span.st_email_button{:displayText=>'Email'}  
+  %section{:id => 'contents'}
+    %article.overview
+      %img{:src => @photos.first.url_b, :width => 500, :height => 335, :alt => @spot.title, :class => 'portrait'}
 
-     
-%aside{:id => 'sidebar'}
-  %div{:id=>'map_canvas', :style=>"height:335px;width:300px;"}
-  %span.st_facebook_button{:displayText=>'Facebook'}
-  %span.st_twitter_button{:displayText=>'Tweet'}
-%section{:id => 'contents'}
-  %article.overview
-    %img{:src => @photos.first.url_b, :width => 500, :height => 335, :alt => @spot.title, :class => 'portrait'}
+      %h2.person= @spot.title
+      %p.summary= @spot.teaser
+      - if @spot.published_at
+        %time{:datetime => @spot.published_at.strftime("%Y-%m-%d")}= @spot.published_at.strftime("%b %d, %Y")
+      %article.contents= textile(@spot.body)
 
-    %h2.person= @spot.title
-    %p.summary= @spot.teaser
-    - if @spot.published_at
-      %time{:datetime => @spot.published_at.strftime("%Y-%m-%d")}= @spot.published_at.strftime("%b %d, %Y")
-    %article.contents= textile(@spot.body)
-
-%div.foto{:id => 'foto'}
-  - @medias.each do |photo|
-    %a.gallerypic{:href=>photo.url_b, :rel=>"hat"}
-      %img{:src => photo.url_m, :alt => 'jat', :class => 'spot',:width=>180, :height=>150 }
-      %span.zoom-icon
-        %img{:src=>"/images/FlickrSmall.png", :width=>160, :height=>120, :alt=>"Zoom"}
-  - @videos.each do |video|
-    %a.gallerypic{:href=>"http://www.youtube.com/watch?v="+video.yt_id+"&feature=player_embedded#at=41", :title=>video.title, :rel=>"vidbox"}
-      %img{:src => video.img_url, :alt => 'jat', :class => 'spot', :width=>180, :height=>150 }
+  %div.foto{:id => 'foto'}
+    - @medias.each do |photo|
+      %a.gallerypic{:href=>photo.url_b, :rel=>"hat"}
+        %img{:src => photo.url_m, :alt => 'jat', :class => 'spot',:width=>160, :height=>120 }
+        %span.zoom-icon
+          %img{:src=>"/images/FlickrSmall.png", :width=>160, :height=>120, :alt=>"Zoom"}
+    - @videos.each do |video|
+      %a.gallerypic{:href=>"http://www.youtube.com/watch?v="+video.yt_id+"&feature=player_embedded#at=41", :title=>video.title, :rel=>"vidbox"}
+        %img{:src => video.img_url, :alt => 'jat', :class => 'spot', :width=>160, :height=>120 }
+%div{:id => 'footer_wrapper'}
+  %footer
+    %div{:id => 'footer_left'}
+      %h2 CONTACT & INFO
+    %div{:id => 'footer_right'}
+      %h2 ALL SPOTS
+      - @spots.each do |spot|
+        %a{:href => "/spot/#{spot.slug}"} #{spot.title}

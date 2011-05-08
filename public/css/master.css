@@ -19,19 +19,12 @@ display: block;
 }
 
 a {
-background-color: #ececec;
-color: #666;
-text-decoration: underline;
+color: black;
 }
 
-a:hover {
-color: #fe2e9a !important;
+#footer_wrapper a{
+  color:white;
 }
-
-a:hover img {
-opacity: 0.8;
-}
-
 article.interview {
 margin-bottom: 20px;
 }
@@ -63,7 +56,7 @@ header, nav, #wrapper{
   
 }
 #map_canvas{
-  margin-bottom:30px;
+  margin-bottom:55px;
 }
 #footer_wrapper{
   background-color: #82358C;
@@ -131,7 +124,7 @@ h3 {
 padding: 0 0 5px 0;
 margin: 20px 0 5px 0;
 color: #555;
-font-size: 80%;
+font-size: 100%;
 font-weight: normal;
 }
 
@@ -223,8 +216,8 @@ float: left;
 
 span.zoom-icon{
   position:absolute;
-  left:7%;
-  top:10%;
+  left:0%;
+  top:0%;
   filter:alpha(opacity=50);
   -moz-opacity:0.5;
   -khtml-opacity: 0.5;
