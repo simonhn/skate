@@ -106,7 +106,10 @@ end
 
 get '/spot/:slug/delete' do
   @spot = Spot.first(:slug => params[:slug])
-  @spot.destroy
+  @spot.routes.destroy
+  @spot.photos.destroy
+  @spot.destroy!
+  redirect '/'
 end
 
 post '/spot/new' do
