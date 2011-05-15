@@ -55,7 +55,11 @@ header, nav, #wrapper{
   margin: auto;
   
 }
+
 #map_canvas{
+  margin-bottom:30px;
+}
+#sidebar #map_canvas{
   margin-bottom:95px;
 }
 #footer_wrapper{

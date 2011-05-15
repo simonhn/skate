@@ -11,7 +11,7 @@
            $.each(substr, function(j, item){
              if(item == 'spotadmin'){
                
-               $('<li><a href="'+url_b+'"><img src="'+url_s+'"></img></a></li>').appendTo(".image_thumb").click(function(){
+               $('<li><a href="'+url_b+'"><img height="50px" width="50px" src="'+url_s+'"></img></a></li>').appendTo(".image_thumb").click(function(){
                    var imgTitle = $(this).find('a').attr("href");
                    if ($(this).is(".active")) {
                        return false;
