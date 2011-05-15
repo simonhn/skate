@@ -37,9 +37,10 @@ class Route
     has n, :spots, :through => Resource
 end
 
+
 class Photo
     include DataMapper::Resource
-    property :id,           Serial, :key => true
+    property :id,           Serial
     property :title,        String
     property :summary,      String, :length => 100
     property :flick_id,     String, :length => 100
@@ -53,6 +54,7 @@ class Photo
     property :type,         String, :length => 100
     #has n, :spots, :through => Resource
 end
+
 
 class YouTube
     include DataMapper::Resource
@@ -76,14 +78,23 @@ configure do
   DataMapper.auto_upgrade!
   #drops table and rebuilds
   #DataMapper.auto_migrate!
-  FlickRaw.api_key="26a3aea48d909153a7e4867c6155c00a"
-  FlickRaw.shared_secret="1f521014a6c266e9"
+  #FlickRaw.api_key="26a3aea48d909153a7e4867c6155c00a"
+  #FlickRaw.shared_secret="1f521014a6c266e9"
+  FlickRaw.api_key="f65cddc72218d6629231015dbba534ab"
+  FlickRaw.shared_secret="02b67bec287635c1"
   set :haml, {:format => :html5}
 end
 
 get '/' do
   @route = Route.first
   haml :map
+end
+
+
+
+get '/cloudmap' do
+  @route = Route.first
+  haml :cloudmap
 end
 
 
@@ -144,17 +155,11 @@ end
 
 get '/spot/:slug' do
   @spot = Spot.first(:slug => params[:slug])
-  puts RedCloth.new(@spot.body).to_html.inspect
   @spots = Spot.all
   @route = @spot.routes.first
-  @photos = @spot.photos
-  if @photos.count == 0
-    puts @photos.count
-    @photos = Photo.all
-  end
-  @medias = Photo.all(:limit=>10)
   @videos = YouTube.all(:limit=>10)
-  @map = @spot.to_json(:methods => [:photos])
+  #@map = @spot.to_json(:methods => [:photos])
+  @map = @spot.to_json
 
   #auth = flickr.auth.checkToken :auth_token => "72157624944961698-bc20f9c3f8e80ef5"
   #list = flickr.photos.search(:tags=>'skateboard,copenhagen',:per_page => 100, :tag_mode=> 'all', :sort => 'interestingness-desc')

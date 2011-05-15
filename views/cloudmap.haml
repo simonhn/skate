@@ -1,0 +1,24 @@
+:javascript    
+  $(document).ready(function(){
+    var map = new CM.Map('map_canvas', new CM.Tiles.CloudMade.Web({key: '9652f6829dfb4d4292d226c901acdea2', styleId:13981}));
+    map.setCenter(new CM.LatLng(55.686626,12.567857), 13);
+    var directions = new CM.Directions(map, null, '9652f6829dfb4d4292d226c901acdea2');
+    var options = {
+       travelMode: 'bicycle',
+    }
+    $.get('/georss.json', function(json){
+      place = $.parseJSON(json);
+      var middlepoints = [];
+      for (i=0;i<place.length;i++)
+      {
+        var middle = new CM.LatLng(place[i]["lat"], place[i]["long"]);
+        middlepoints.push(middle);
+      }
+      directions.loadFromWaypoints(middlepoints, options);
+    });
+  });
+%div{:id => 'wrapper'}
+  %div{:id=>'map_canvas', :style=>"height:600px;width:860px;"}
+  %div
+    %h2= @route.title
+    %p= textile(@route.body)

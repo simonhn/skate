@@ -9,7 +9,7 @@
       if(place["photos"]["0"] != null){
         var photo = '<img src="'+place["photos"]["0"]["url_s"]+'"/>'
       }
-      var contentString = '<div class="infowindow"><span><a href="/spot/' + place["slug"] + '">' + place["title"] + '</a></span>' + "<br>" + place["address"] + "<br>" + place["teaser"] + '<br>'+photo+'</div>';
+      var contentString = '<div class="infowindow"><span><a href="/spot/' + place["slug"] + '">' + place["title"] + '</a></span>' + "<br>" + place["teaser"] + '<br>'+photo+'</div>';
       var infowindow = new google.maps.InfoWindow({
         content: contentString
       });

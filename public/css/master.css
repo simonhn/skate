@@ -259,3 +259,15 @@ width:700px;
   border-top:0px;
   font-size: 1.2em;
 }
+
+ul{
+  float:left;
+width: 100%;
+margin: 0;
+padding: 0 0;
+list-style: none;
+}
+.image_thumb li { display: inline; margin:2px;}
+.image_thumb{padding-top:4px;}
+
+

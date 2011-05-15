@@ -1,5 +1,34 @@
 :javascript
   $(document).ready(function(){ 
+    $.getJSON("http://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=f65cddc72218d6629231015dbba534ab&group_id=1695312%40N23&tags=#{@spot.slug}&extras=tags&format=json&jsoncallback=?",
+       function(data) {         
+         $.each(data.photos.photo, function(i,item){
+           var url_s = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+"_s.jpg";
+           var url_m = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+"_m.jpg";
+           var url_b = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+"_b.jpg";
+           if(i==0){$(".portrait").attr({ src: url_b });}
+           var substr = item.tags.split(' ');           
+           $.each(substr, function(j, item){
+             if(item == 'spotadmin'){
+               
+               $('<li><a href="'+url_b+'"><img src="'+url_s+'"></img></a></li>').appendTo(".image_thumb").click(function(){
+                   var imgTitle = $(this).find('a').attr("href");
+                   if ($(this).is(".active")) {
+                       return false;
+                   } else { 
+                     $(".portrait").attr({ src: imgTitle });
+                   };
+                   $(".image_thumb li").removeClass('active');
+                   $(this).addClass('active');
+                   return false; 
+               });
+             }
+           });
+             
+           $('<a href="' +url_b+'" rel="hat" class="gallerypic"><img alt="jat" width="160" height="120" class="spot" src="'+url_m+'"></img><span class="zoom-icon"><img src="/images/FlickrSmall.png" alt="Zoom" width="160" height="120" /></span></a>').fancybox().appendTo("#foto");
+         });
+       });
+       
     var place = (#{@spot.to_json});
     var latlng = new google.maps.LatLng(place["lat"], place["long"]);
     var myOptions = {
@@ -26,6 +55,7 @@
      marker.setMap(map);
      var switchTo5x=true;
      stLight.options({publisher:'1bef05f7-1745-4681-a2b4-74155bc4ae0a'});
+
   }); 
 %div{:id => 'wrapper'}
   %aside{:id => 'sidebar'}
@@ -35,20 +65,15 @@
     %span.st_email_button{:displayText=>'Email'}  
   %section{:id => 'contents'}
     %article.overview
-      %img{:src => @photos.first.url_b, :width => 500, :height => 335, :alt => @spot.title, :class => 'portrait'}
-
-      %h2.person= @spot.title
-      %p.summary= @spot.teaser
+      %img{:width => 500, :height => 335, :class => 'portrait'}
+      %ul.image_thumb
+      %h2.title= @spot.title
+      %p.teaser= @spot.teaser
       - if @spot.published_at
         %time{:datetime => @spot.published_at.strftime("%Y-%m-%d")}= @spot.published_at.strftime("%b %d, %Y")
       %article.contents= textile(@spot.body)
 
   %div.foto{:id => 'foto'}
-    - @medias.each do |photo|
-      %a.gallerypic{:href=>photo.url_b, :rel=>"hat"}
-        %img{:src => photo.url_m, :alt => 'jat', :class => 'spot',:width=>160, :height=>120 }
-        %span.zoom-icon
-          %img{:src=>"/images/FlickrSmall.png", :width=>160, :height=>120, :alt=>"Zoom"}
     - @videos.each do |video|
       %a.gallerypic{:href=>"http://www.youtube.com/watch?v="+video.yt_id+"&feature=player_embedded#at=41", :title=>video.title, :rel=>"vidbox"}
         %img{:src => video.img_url, :alt => 'jat', :class => 'spot', :width=>160, :height=>120 }
