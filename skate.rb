@@ -196,7 +196,7 @@ end
 
 get '/georss.json' do
    @spots = Spot.all(:order => [:sequence.asc])
-  @spots.to_json(:methods => [:photos])
+  @spots.to_json
 end
 
 get '/vimeo' do
