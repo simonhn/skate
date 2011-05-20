@@ -77,9 +77,9 @@ configure do
   #@config = YAML::load( File.open( 'config/settings.yml' ) )
   #@connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
   #DataMapper.setup(:default, @connection)
-  DataMapper.auto_upgrade!
+  #DataMapper.auto_upgrade!
   #drops table and rebuilds
-  #DataMapper.auto_migrate!
+  DataMapper.auto_migrate!
   #FlickRaw.api_key="26a3aea48d909153a7e4867c6155c00a"
   #FlickRaw.shared_secret="1f521014a6c266e9"
   FlickRaw.api_key="f65cddc72218d6629231015dbba534ab"
@@ -225,41 +225,30 @@ end
 get '/populate' do
 
    
-  @spot1 = Spot.first_or_create({:slug => 'noerrebro'},{
-          :slug         => 'noerrebro',
-          :title        => 'Noerrebro skate park',
-          :teaser       => 'Et hyggeligt lille sted paa noerrebro',
+  @spot1 = Spot.first_or_create({:slug => 'carlsberg'},{
+          :slug         => 'carlsberg',
+          :title        => 'Carlsberg',
+          :teaser       => 'Oeller',
           :body         => 'En lang beskrivelse af dette fantastiske sted, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dapibus odio a libero dapibus sit amet malesuada urna luctus. Integer eget metus mattis lacus scelerisque ultricies. Pellentesque cursus interdum purus, vestibulum viverra nulla mollis quis. Pellentesque dui orci, scelerisque ut rhoncus vel, scelerisque a est. Nam eget lectus lectus, sit amet aliquet eros. Nullam ac varius justo. Vestibulum sagittis fermentum urna sed accumsan. Nullam nisl ipsum, sodales non scelerisque vitae, dignissim sit amet felis. Praesent in magna et tortor sagittis consectetur porta vel risus. Nam sit amet feugiat velit. Vestibulum pretium posuere egestas. Sed est justo, euismod eu semper blandit, pulvinar at orci. Aenean facilisis volutpat sapien quis commodo. Suspendisse mollis placerat porttitor. Cras congue tellus a lorem rhoncus eu egestas nisi fermentum.',
-          :hashtag      => '#skatenb',
-          :address       => 'Hjoernet af noerre alle',      
-          :lat          => '55.694471',
-          :long         => '12.549305',
+          :hashtag      => '#carlsberg',
+          :address       => 'ydre vesterbro',      
+          :lat          => '55.665',
+          :long         => '12.529972',
           :sequence        => '1'}
           )
- @spot2 = Spot.first_or_create({         :slug         => 'oesterbro'},{
-         :slug         => 'oesterbro',
-         :title        => 'Oesterbronx skate park',
-         :teaser       => 'Kids and kaffe latte',
+ @spot2 = Spot.first_or_create({:slug => 'islandsbrygge'},{
+         :slug         => 'islandsbrygge',
+         :title        => 'Islandsbrygge',
+         :teaser       => 'Ved havnen',
          :body         => 'En lang body tekst, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dapibus odio a libero dapibus sit amet malesuada urna luctus. Integer eget metus mattis lacus scelerisque ultricies. Pellentesque cursus interdum purus, vestibulum viverra nulla mollis quis. Pellentesque dui orci, scelerisque ut rhoncus vel, scelerisque a est. Nam eget lectus lectus, sit amet aliquet eros. Nullam ac varius justo. Vestibulum sagittis fermentum urna sed accumsan. Nullam nisl ipsum, sodales non scelerisque vitae, dignissim sit amet felis. Praesent in magna et tortor sagittis consectetur porta vel risus. Nam sit amet feugiat velit. Vestibulum pretium posuere egestas. Sed est justo, euismod eu semper blandit, pulvinar at orci. Aenean facilisis volutpat sapien quis commodo. Suspendisse mollis placerat porttitor. Cras congue tellus a lorem rhoncus eu egestas nisi fermentum.',
-         :hashtag      => '#skateobro',
-         :address       => 'Oesterbrogade',      
-         :lat          => '55.707046',
-         :long         => '12.577801',
+         :hashtag      => '#islandsbrygge',
+         :address       => 'Lige efter langbro',      
+         :lat          => '55.6688',
+         :long         => '12.5788',
          :sequence        => '2'}
          )
          
- @spot3 = Spot.first_or_create({:slug => 'vesterbro',
- },{
-        :slug         => 'vesterbro',
-        :title        => 'Vesterbronx skate park',
-        :teaser       => 'Junkies and skaters',
-        :body         => 'En lang body tekst, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dapibus odio a libero dapibus sit amet malesuada urna luctus. Integer eget metus mattis lacus scelerisque ultricies. Pellentesque cursus interdum purus, vestibulum viverra nulla mollis quis. Pellentesque dui orci, scelerisque ut rhoncus vel, scelerisque a est. Nam eget lectus lectus, sit amet aliquet eros. Nullam ac varius justo. Vestibulum sagittis fermentum urna sed accumsan. Nullam nisl ipsum, sodales non scelerisque vitae, dignissim sit amet felis. Praesent in magna et tortor sagittis consectetur porta vel risus. Nam sit amet feugiat velit. Vestibulum pretium posuere egestas. Sed est justo, euismod eu semper blandit, pulvinar at orci. Aenean facilisis volutpat sapien quis commodo. Suspendisse mollis placerat porttitor. Cras congue tellus a lorem rhoncus eu egestas nisi fermentum.',
-        :hashtag      => '#skatevbro',
-        :address       => 'Enghavevej 78',      
-        :lat          => '55.661683',
-        :long         => '12.540293',
-        :sequence        => '3'}
-        )
+
 
   @route = Route.first_or_create(
           :slug         => 'skate route nummer uno',
@@ -267,19 +256,14 @@ get '/populate' do
           :teaser       => 'Klart den fedeste rute',
           :body         => 'En lang beskrivelse af denne fantastiske rute'
           )
-  @route1 = Route.first_or_create(
-          :slug         => 'oerestaden',
-          :title        => 'En rute gennem oerestaden',
-          :teaser       => 'Klart den naestfedeste rute',
-          :body         => 'En lang beskrivelse af denne fantastiske rute'
-          )
+  @route.save
 
   @spot1.routes << @route
   @spot2.routes << @route
-  @spot3.routes << @route
+
   
   @spot1.save
   @spot2.save
-  @spot3.save
+
 
 end
