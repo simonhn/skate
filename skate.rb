@@ -88,6 +88,7 @@ configure do
 end
 
 get '/' do
+  cache_control :public, :max_age => 600
   @route = Route.first
   haml :map
 end
@@ -159,6 +160,7 @@ post '/spot/:slug/edit' do
 end
 
 get '/spot/:slug' do
+  cache_control :public, :max_age => 600
   @spot = Spot.first(:slug => params[:slug])
   @spots = Spot.all
   @route = @spot.routes.first
