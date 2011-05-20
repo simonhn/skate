@@ -71,13 +71,14 @@ configure do
   #DataMapper.setup(:default,'postgres://oizollcote:d1yPMObgwdxtm0zi_YSu@ec2-50-17-218-236.compute-1.amazonaws.com/oizollcote')
   
   #DataMapper::Logger.new('log/datamapper.log', :debug)
+  DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://pav.db')
   
-  @config = YAML::load( File.open( 'config/settings.yml' ) )
-  @connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
-  DataMapper.setup(:default, @connection)
+  #@config = YAML::load( File.open( 'config/settings.yml' ) )
+  #@connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
+  #DataMapper.setup(:default, @connection)
   DataMapper.auto_upgrade!
   #drops table and rebuilds
-  #DataMapper.auto_migrate!
+  DataMapper.auto_migrate!
   #FlickRaw.api_key="26a3aea48d909153a7e4867c6155c00a"
   #FlickRaw.shared_secret="1f521014a6c266e9"
   FlickRaw.api_key="f65cddc72218d6629231015dbba534ab"
