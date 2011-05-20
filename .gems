@@ -9,3 +9,4 @@ dm-core
 dm-migrations
 haml
 dm-mysql-adapter
+dm-postgres-adapter
