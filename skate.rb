@@ -79,7 +79,7 @@ configure do
   #DataMapper.setup(:default, @connection)
   DataMapper.auto_upgrade!
   #drops table and rebuilds
-  DataMapper.auto_migrate!
+  #DataMapper.auto_migrate!
   #FlickRaw.api_key="26a3aea48d909153a7e4867c6155c00a"
   #FlickRaw.shared_secret="1f521014a6c266e9"
   FlickRaw.api_key="f65cddc72218d6629231015dbba534ab"
@@ -281,17 +281,5 @@ get '/populate' do
   @spot1.save
   @spot2.save
   @spot3.save
-  
-  @photo1 = Photo.get(86)
-  @spot1.photos << @photo1
-  
-  @photo2 = Photo.get(85)
-  @spot2.photos << @photo2
-  
-  @photo3 = Photo.get(84)
-  @spot3.photos << @photo3
-  
-  @spot1.save
-  @spot2.save
-  @spot3.save
+
 end
