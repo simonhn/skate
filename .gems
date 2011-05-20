@@ -8,4 +8,4 @@ RedCloth
 dm-core
 dm-migrations
 haml
-dm-postgres-adapter
+dm-mysql-adapter
