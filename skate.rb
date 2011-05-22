@@ -69,7 +69,6 @@ end
 
 configure do
   #setup MySQL connection:  
-  #DataMapper.setup(:default,'postgres://oizollcote:d1yPMObgwdxtm0zi_YSu@ec2-50-17-218-236.compute-1.amazonaws.com/oizollcote')
   
   #DataMapper::Logger.new('log/datamapper.log', :debug)
   DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://pav.db')
@@ -126,9 +125,11 @@ post '/spot/new' do
     :long       => params["long"],
     :sequence   => params["sequence"]
   )
-      
+  
   if @spot.save
-    @spot.save
+     @route = Route.first(:slug => params[:route])
+     @spot.routes << @route
+     @spot.save
       redirect "/"
   end
 end
@@ -162,8 +163,9 @@ end
 get '/spot/:slug' do
   cache_control :public, :max_age => 600
   @spot = Spot.first(:slug => params[:slug])
-  @spots = Spot.all
   @route = @spot.routes.first
+  
+  @spots = Spot.all
   @videos = YouTube.all(:limit=>10)
   #@map = @spot.to_json(:methods => [:photos])
   @map = @spot.to_json
