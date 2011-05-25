@@ -276,9 +276,10 @@ list-style: none;
 .line{
   width: 100%;
   float:left;
+  padding-top: 25px;
+  
 }
 fieldset.in-reply-to-border {
-  padding-top: 25px;
   border-color: #EBEBEB;
   border-style: solid;
   border-width: 1px 0 0;
