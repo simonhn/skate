@@ -56,14 +56,17 @@
      marker.setMap(map);
      var switchTo5x=true;
      stLight.options({publisher:'1bef05f7-1745-4681-a2b4-74155bc4ae0a'});
-
+     $(".directions a").attr("href", "http://maps.google.dk/maps?hl=da&z=14&saddr=&daddr="+place["lat"]+","+place["long"]);
   }); 
 %div{:id => 'wrapper'}
   %aside{:id => 'sidebar'}
     %div{:id=>'map_canvas', :style=>"height:335px;width:300px;"}
-    %span.st_facebook_button{:displayText=>'Facebook'}
-    %span.st_twitter_button{:displayText=>'Tweet'}
-    %span.st_email_button{:displayText=>'Email'}  
+    %div.grey
+      %span.st_facebook_button{:displayText=>'Facebook'}
+      %span.st_twitter_button{:displayText=>'Tweet'}
+      %span.st_email_button{:displayText=>'Email'}
+    %div.directions Get <a href="http://maps.google.dk">directions</a> to spot  
+    
   %section{:id => 'contents'}
     %article.overview
       %img{:width => 500, :height => 335, :class => 'portrait'}

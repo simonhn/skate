@@ -289,3 +289,15 @@ legend.in-reply-to-text {
   padding-right: 5px;
   text-transform:uppercase;  
 }
+
+.grey{
+  padding:10px;
+  background-color:#EBEBEB;
+  width: 210px;
+}
+.directions{
+  border-top: solid 2px white;
+  width: 210px;
+  padding:10px;
+  background-color:#EBEBEB;
+}
