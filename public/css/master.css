@@ -138,7 +138,6 @@ font-weight: normal;
   margin: 0px 0 0px 0;
   border:0 none;
   float:left;
-  border-top: solid 1px #ccc;
   padding: 20px 0px;
 }
 
@@ -274,4 +273,19 @@ list-style: none;
 .image_thumb li { display: inline; margin:2px;}
 .image_thumb{padding-top:4px;}
 
-
+.line{
+  width: 100%;
+  float:left;
+}
+fieldset.in-reply-to-border {
+  padding-top: 25px;
+  border-color: #EBEBEB;
+  border-style: solid;
+  border-width: 1px 0 0;
+  padding-left: 310px;
+}
+legend.in-reply-to-text {
+  padding-left: 5px;
+  padding-right: 5px;
+  text-transform:uppercase;  
+}

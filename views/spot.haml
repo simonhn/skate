@@ -68,12 +68,14 @@
     %article.overview
       %img{:width => 500, :height => 335, :class => 'portrait'}
       %ul.image_thumb
-      %h2.title= @spot.title
+      %h2.title= '#'+ @spot.sequence.to_s + ' '+ @spot.title
       %p.teaser= @spot.teaser
       - if @spot.published_at
         %time{:datetime => @spot.published_at.strftime("%Y-%m-%d")}= @spot.published_at.strftime("%b %d, %Y")
       %article.contents= textile(@spot.body)
-
+  %div.line
+    %fieldset.in-reply-to-border
+      %legend.in-reply-to-text live feed from selected spot
   %div.foto{:id => 'foto'}
     - @videos.each do |video|
       %a.gallerypic{:href=>"http://www.youtube.com/watch?v="+video.yt_id+"&feature=player_embedded#at=41", :title=>video.title, :rel=>"vidbox"}
