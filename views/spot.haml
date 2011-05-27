@@ -60,9 +60,9 @@
   }); 
 %div{:id => 'wrapper'}
   %aside{:id => 'sidebar'}
-    %div{:id=>'map_canvas', :style=>"height:335px;width:300px;"}
+    %div{:id=>'map_canvas', :style=>"height:427px;width:300px;"}
     %div.grey
-      Share this spot with a friend
+      %div Share this spot with a friend
       %span.st_facebook_button{:displayText=>'Facebook'}
       %span.st_twitter_button{:displayText=>'Tweet'}
       %span.st_email_button{:displayText=>'Email'}
@@ -70,7 +70,7 @@
     
   %section{:id => 'contents'}
     %article.overview
-      %img{:width => 500, :height => 335, :class => 'portrait'}
+      %img{:width => 640, :height => 427, :class => 'portrait'}
       %ul.image_thumb
       %h2.title= '#'+ @spot.sequence.to_s + ' '+ @spot.title
       %p.teaser= @spot.teaser
