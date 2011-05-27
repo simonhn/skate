@@ -30,7 +30,16 @@
         });
     });
 %div{:id => 'wrapper'}
-  %div{:id=>'map_canvas', :style=>"height:600px;width:860px;"}
+  %div{:id=>'map_canvas', :style=>"height:600px;width:960px;"}
   %div
     %h2= @route.title
     %p= textile(@route.body)
+%div{:id => 'footer_wrapper'}
+  %div.arrow-down  
+  %footer
+    %div{:id => 'footer_left'}
+      %h2 CONTACT & INFO
+    %div{:id => 'footer_right'}
+      %h2 ALL SPOTS
+      - @spots.each do |spot|
+        %a{:href => "/spot/#{spot.slug}"} #{spot.title}
