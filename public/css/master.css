@@ -300,7 +300,7 @@ legend.in-reply-to-text {
   text-transform:uppercase;  
 }
 
-.grey{
+.like{
   padding-left:10px;
   padding-top:10px;
   padding-bottom:10px;
@@ -308,6 +308,16 @@ legend.in-reply-to-text {
   background-color:#EBEBEB;
   width: 300px;
   margin-top: 114px;
+}
+
+.grey{
+  padding-left:10px;
+  padding-top:10px;
+  padding-bottom:10px;
+  
+  background-color:#EBEBEB;
+  width: 300px;
+  border-top: solid 2px white;
 }
 .directions{
   border-top: solid 2px white;
