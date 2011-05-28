@@ -27,7 +27,10 @@
            });
              
            $('<a href="' +url_b+'" rel="hat" class="gallerypic"><img alt="jat" width="160" height="120" class="spot" src="'+url_m+'"></img><span class="zoom-icon"><img src="/images/FlickrSmall.png" alt="Zoom" width="160" height="120" /></span></a>').fancybox().appendTo("#foto");
+           
          });
+         $('<div class="downarrowdiv contribute"><h3>Contribute</h3><div>If you have any content online for this spot you can make it available for this site. The "live feed" section of this site is fetched off the web. All you need to do is tag you content with one of the following keywords:</div></div>').appendTo("#foto");
+         
        });
        
     var place = (#{@spot.to_json});

@@ -149,7 +149,8 @@ font-weight: normal;
   margin: 0px 0 0px 0;
   border:0 none;
   float:left;
-  padding: 20px 0px;
+  padding-top: 20px;
+  margin-bottom:75px;
 }
 
 img.spot {
@@ -338,6 +339,20 @@ legend.in-reply-to-text {
   border-top: 20px solid white;
 }
 
+
+.downarrowdiv:after{ /*arrow added to downarrowdiv DIV*/
+content:'';
+display:block;
+position:absolute;
+top:100%; /*should be set to 100% */
+left:40px;
+width:0;
+height:0;
+border-color: #82358C transparent transparent transparent; /*border color should be same as div div background color*/
+border-style: solid;
+border-width: 20px;
+}
+
 #footer_right ul{
   list-style-type:none;
   width:100%;
@@ -347,4 +362,20 @@ legend.in-reply-to-text {
   float:left;
   padding: 0 10px 0 0;
   width:169px;
+}
+
+.contribute{
+  line-height:1em;
+  padding:5px;
+  width:160px;
+  height:200px;
+  background-color: #82358C;
+  position:relative;
+  display:block;
+  float:left;
+  color: white;
+}
+.contribute h3{
+  margin:0px;
+  color:white;
 }
