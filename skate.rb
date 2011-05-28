@@ -193,7 +193,7 @@ get '/spot/:slug' do
   @route = @spot.routes.first
   
   @spots = Spot.all
-  @videos = YouTube.all(:limit=>10)
+  #@videos = YouTube.all(:limit=>10)
   #@map = @spot.to_json(:methods => [:photos])
   @map = @spot.to_json
 
