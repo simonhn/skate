@@ -88,7 +88,24 @@ configure do
   set :haml, {:format => :html5}
 end
 
-get '/' do
+helpers do
+  
+  def protected!
+      unless authorized?
+        response['WWW-Authenticate'] = %(Basic realm="Auth needed for post requests")
+        throw(:halt, [401, "Not authorized\n"])
+      end
+    end
+
+    def authorized?
+      @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+      @user =  ENV['MY_SITE_USERNAME']
+      @pass = ENV['MY_SITE_SECRET']
+      @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == [@user.to_s, @pass.to_s]
+    end
+end
+
+get '/' do  
   cache_control :public, :max_age => 600
   @route = Route.first
   @spots = @route.spots
@@ -110,6 +127,7 @@ get '/spot/new' do
 end
 
 get '/spot/:slug/delete' do
+  
   @spot = Spot.first(:slug => params[:slug])
   @spot.routes.destroy
   @spot.photos.destroy
@@ -201,6 +219,7 @@ post '/route/:slug/edit' do
 end
 
 get '/admin' do
+  protected!
    @spots = Spot.all
    @routes = Route.all
    haml :admin
