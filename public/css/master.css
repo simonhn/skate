@@ -67,10 +67,11 @@ header, nav, #wrapper{
 }
 footer {
   padding-top: 20px;
+  padding-bottom: 20px;
   display:block;
   width: 100%;
   color: white;
-  height: 150px;
+  height: 200px;
 }
 
 footer p {
@@ -261,7 +262,7 @@ margin-left: 20px;
 #footer_right{
 float:left;
 padding-left:120px;
-width:700px;
+width:800px;
 }
 
 #footer_left h2, #footer_right h2{
@@ -335,4 +336,15 @@ legend.in-reply-to-text {
   border-right: 20px solid transparent;
   margin-left: 285px;
   border-top: 20px solid white;
+}
+
+#footer_right ul{
+  list-style-type:none;
+  width:100%;
+  font-size: 100%;
+}
+#footer_right li {
+  float:left;
+  padding: 0 10px 0 0;
+  width:169px;
 }

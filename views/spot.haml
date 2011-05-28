@@ -90,7 +90,15 @@
   %footer
     %div{:id => 'footer_left'}
       %h2 CONTACT & INFO
+      %ul
+        %li Christian Valentiner
+        %li Christian Valentiner
+        %li Christian Valentiner
+        %li Christian Valentiner
+        %li Christian Valentiner
     %div{:id => 'footer_right'}
       %h2 ALL SPOTS
-      - @spots.each do |spot|
-        %a{:href => "/spot/#{spot.slug}"} #{spot.title}
+      %ul
+        - @spots.each do |spot|
+          %li
+            %a{:href => "/spot/#{spot.slug}"} #{spot.title}
