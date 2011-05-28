@@ -25,7 +25,7 @@ class Spot
     property :lat,          Float
     property :long,         Float
     property :sequence,     Integer
-    has n, :photos, :through => Resource
+    #has n, :photos, :through => Resource
     has n, :routes, :through => Resource
 end
 
@@ -41,6 +41,7 @@ class Route
 end
 
 
+=begin
 class Photo
     include DataMapper::Resource
     property :id,           Serial
@@ -58,7 +59,6 @@ class Photo
     #has n, :spots, :through => Resource
 end
 
-
 class YouTube
     include DataMapper::Resource
     property :id,           Serial, :key => true
@@ -68,6 +68,7 @@ class YouTube
     property :type,         String, :length => 100
     property :embed_html,   Text
 end
+=end
 
 configure do
   #setup MySQL connection:  
@@ -81,8 +82,8 @@ configure do
   DataMapper.auto_upgrade!
   #drops table and rebuilds
   #DataMapper.auto_migrate!
-  #FlickRaw.api_key="26a3aea48d909153a7e4867c6155c00a"
-  #FlickRaw.shared_secret="1f521014a6c266e9"
+
+
   FlickRaw.api_key="f65cddc72218d6629231015dbba534ab"
   FlickRaw.shared_secret="02b67bec287635c1"
   set :haml, {:format => :html5}
@@ -121,12 +122,15 @@ end
 
 
 get '/spot/new' do
+  protected!
+  
   @spot = Spot.new(params)
   @routes = Route.all
   haml :spot_form
 end
 
 get '/spot/:slug/delete' do
+  protected!
   
   @spot = Spot.first(:slug => params[:slug])
   @spot.routes.destroy
@@ -156,6 +160,8 @@ post '/spot/new' do
 end
 
 get '/spot/:slug/edit' do
+  protected!
+  
   @spot = Spot.first(:slug => params[:slug])
   raise not_found unless @spot
   @routes = Route.all
@@ -199,12 +205,15 @@ get '/spot/:slug' do
 end
 
 get '/route/:slug/edit' do
+  protected!
+  
   @route = Route.first(:slug => params[:slug])
   raise not_found unless @route
   haml :route_form
 end
 
 post '/route/:slug/edit' do
+  
   @route = Route.first(:slug => params[:slug])
   raise not_found unless @route
   
@@ -226,6 +235,8 @@ get '/admin' do
 end
 
 get '/georss.json' do
+  cache_control :public, :max_age => 600
+  
    @spots = Spot.all(:order => [:sequence.asc])
   @spots.to_json
 end
@@ -249,8 +260,7 @@ get '/vimeo' do
 end
 
 get '/populate' do
-
-   
+  protected!   
   @spot1 = Spot.first_or_create({:slug => 'carlsberg'},{
           :slug         => 'carlsberg',
           :title        => 'Carlsberg',
