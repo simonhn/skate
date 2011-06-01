@@ -255,15 +255,12 @@ content: "Published ";
 }
 
 #footer_left{
-width:230px;
 float:left;
-margin-left: 20px;
 }
 
 #footer_right{
 float:left;
 padding-left:120px;
-width:800px;
 }
 
 #footer_left h2, #footer_right h2{
@@ -274,7 +271,9 @@ width:800px;
   border-top:0px;
   font-size: 1.2em;
 }
-
+#footer_right h2{
+  width: 680px;
+}
 ul{
   float:left;
 width: 100%;
@@ -283,6 +282,8 @@ padding: 0 0;
 list-style: none;
 }
 .image_thumb li { display: inline; margin:2px;}
+.image_thumb a { display: inline; margin:2px;}
+
 .image_thumb{padding-top:4px;height: 50px;}
 
 .line{
@@ -335,8 +336,12 @@ legend.in-reply-to-text {
   height: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  margin-left: 285px;
+  margin-left: 200px;
   border-top: 20px solid white;
+}
+.arrow_wrapper{
+  width: 960px;
+  margin:auto;
 }
 
 
@@ -378,4 +383,9 @@ border-width: 20px;
 .contribute h3{
   margin:0px;
   color:white;
+}
+
+.footer_inner{
+  width: 960px;
+  margin: auto;
 }

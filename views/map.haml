@@ -35,19 +35,18 @@
     %h2= @route.title
     %p= textile(@route.body)
 %div{:id => 'footer_wrapper'}
-  %div.arrow-down  
+  %div.arrow_wrapper
+    %div.arrow-down  
   %footer
-    %div{:id => 'footer_left'}
-      %h2 CONTACT & INFO
-      %ul
-        %li Christian Valentiner
-        %li Christian Valentiner
-        %li Christian Valentiner
-        %li Christian Valentiner
-        %li Christian Valentiner
-    %div{:id => 'footer_right'}
-      %h2 ALL SPOTS
-      %ul
-        - @spots.each do |spot|
-          %li
-            %a{:href => "/spot/#{spot.slug}"} #{spot.title}
+    %div.footer_inner
+      %div{:id => 'footer_left'}
+        %h2 CONTACT & INFO
+        %ul
+          %li William Frederiksen
+          %li <a href="mailto:wf@copenhagenskatepark.dk">wf@copenhagenskatepark.dk</a>
+      %div{:id => 'footer_right'}
+        %h2 ALL SPOTS
+        %ul
+          - @spots.each do |spot|
+            %li
+              %a{:href => "/spot/#{spot.slug}"} #{spot.title}

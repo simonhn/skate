@@ -12,17 +12,20 @@
            $.each(substr, function(j, item){
              if(item == 'spotadmin'){
                
-               $('<li><a href="'+url+'"><img height="50px" width="50px" src="'+url_s+'"></img></a></li>').appendTo(".image_thumb").click(function(){
-                   var imgTitle = $(this).find('a').attr("href");
-                   if ($(this).is(".active")) {
-                       return false;
-                   } else { 
-                     $(".portrait").attr({ src: imgTitle });
-                   };
-                   $(".image_thumb li").removeClass('active');
-                   $(this).addClass('active');
-                   return false; 
-               });
+               //original version
+               //$('<li><a href="'+url+'"><img height="50px" width="50px" src="'+url_s+'"></img></a></li>').appendTo(".image_thumb").click(function(){
+                   //var imgTitle = $(this).find('a').attr("href");
+                   //if ($(this).is(".active")) {
+                  //     return false;
+                   //} else { 
+                    // $(".portrait").attr({ src: imgTitle });
+                   //};
+                   //$(".image_thumb li").removeClass('active');
+                   //$(this).addClass('active');
+                   //return false; 
+               //});
+               
+               $('<a href="'+url_b+'" class="gallerypic"><img alt="jat" height="50px" width="50px" class="spot" src="'+url_m+'"></img></a>').fancybox().appendTo(".image_thumb");
              }
            });
              
@@ -34,29 +37,13 @@
        });
        
     var place = (#{@spot.to_json});
-    var latlng = new google.maps.LatLng(place["lat"], place["long"]);
-    var myOptions = {
-      zoom: 13,
-      center: latlng,
-      navigationControl: true,
-      mapTypeControl: false,
-      scaleControl: false,
-      region: 'DK',
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      suppressInfoWindows: true
-      };
-    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-    var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(place["lat"], place["long"]),
-      map: map
-      });
-     var infowindow = new google.maps.InfoWindow(
-         { content: place["title"]
-         });
-     google.maps.event.addListener(marker, 'click', function() {
-         infowindow.open(map,marker);
+
+     map.init();
+     $.get('/georss.json', function(json){
+       data = $.parseJSON(json);
+       calcRoute(data);
+       
        });
-     marker.setMap(map);
      var switchTo5x=true;
      stLight.options({publisher:'1bef05f7-1745-4681-a2b4-74155bc4ae0a'});
      $(".directions a").attr("href", "http://maps.google.dk/maps?hl=da&z=14&saddr=&daddr="+place["lat"]+","+place["long"]);
@@ -89,19 +76,18 @@
       %legend.in-reply-to-text live feed from selected spot
   %div.foto{:id => 'foto'}
 %div{:id => 'footer_wrapper'}
-  %div.arrow-down  
+  %div.arrow_wrapper
+    %div.arrow-down 
   %footer
-    %div{:id => 'footer_left'}
-      %h2 CONTACT & INFO
-      %ul
-        %li Christian Valentiner
-        %li Christian Valentiner
-        %li Christian Valentiner
-        %li Christian Valentiner
-        %li Christian Valentiner
-    %div{:id => 'footer_right'}
-      %h2 ALL SPOTS
-      %ul
-        - @spots.each do |spot|
-          %li
-            %a{:href => "/spot/#{spot.slug}"} #{spot.title}
+    %div.footer_inner
+      %div{:id => 'footer_left'}
+        %h2 CONTACT & INFO
+        %ul
+          %li William Frederiksen
+          %li <a href="mailto:wf@copenhagenskatepark.dk">wf@copenhagenskatepark.dk</a>
+      %div{:id => 'footer_right'}
+        %h2 ALL SPOTS
+        %ul
+          - @spots.each do |spot|
+            %li
+              %a{:href => "/spot/#{spot.slug}"} #{spot.title}
