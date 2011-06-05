@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
-require 'data_mapper'
+require 'datamapper'
 require 'flickraw-cached'
 #require 'vimeo'
 require 'builder'
