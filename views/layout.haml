@@ -1,6 +1,6 @@
 %html
   %head
-    %title #{"#{@title} : " if @title}cph spot
+    %title #{"#{@title} : " if @title}CPH SK8 MAP
     %link{:href => "/css/master.css", :rel => 'stylesheet', :type => 'text/css'}
     %link{:href => "/fancybox/jquery.fancybox-1.3.2.css", :media => 'screen', :rel => 'stylesheet', :type => 'text/css'}
     %link{:href => "/css/videobox.css", :media => 'screen', :rel => 'stylesheet', :type => 'text/css'}
@@ -15,23 +15,7 @@
 
     
     :javascript 
-      $(function() {
-       $('.foto a[rel="vidbox"]').click(function() {
-      	$.fancybox({
-      			'padding'		: 0,
-            			'width'		: 680,
-            			'height'		: 495,
-            			'href'			: this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
-            			'type'			: 'swf',
-            			'swf'			: {
-            			   	 'wmode'		: 'transparent',
-            				'allowfullscreen'	: 'true'
-            			}
-      		});
 
-      	return false;
-      });
-      });
 			
       var map = {map : null};
       
@@ -40,13 +24,11 @@
 
       map.init = function initialize() {
         var latlng = new google.maps.LatLng(55.676294, 12.568116);
-        var image = new google.maps.MarkerImage('http://localhost:9393/images/skateboarding.png',
-                                    new google.maps.Size(27, 27));
+
 
         var markerOption = {
             clickable: true,
             flat: false,
-            icon: image,
             visible: false,
             map: map
         };
@@ -112,7 +94,6 @@
         }
         function showSteps(directionResult) {
           var myRoute = directionResult.routes[0];
-          console.log(directionResult);
           for (var i = 0; i < myRoute.legs.length; i++) {
               var marker = new google.maps.Marker({
                 position: myRoute.legs[i].start_location, 
@@ -130,7 +111,6 @@
         function showPlaces(directionResult) {
           for (i=0;i<directionResult.length;i++)
           {
-            console.log(directionResult[i]);
             var middle = new google.maps.LatLng(directionResult[i]["lat"], directionResult[i]["long"]);
             var marker = new google.maps.Marker({
               position: middle, 

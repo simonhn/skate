@@ -1,14 +1,14 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
-require 'datamapper'
+require 'data_mapper'
 require 'flickraw-cached'
 #require 'vimeo'
 require 'builder'
 require 'RedCloth'
-require 'dm-postgres-adapter'
+#require 'dm-postgres-adapter'
 #require 'newrelic_rpm'
-
+require 'unicode'
 #spot: et navn, en teaser tekst, en beskrivelses tekst, en geo lokation (latiture/longtitude), en adresse, et antal medier (foto, video), #links, en dato, et hashtag (saa folk kan twitte om netop det spot og vi kan evt. bruge det til at fetche flickr og youtube stuff der er #tagget med det tag? bare en ide). kan et spot forresten vaere en del af flere ruter?
 #rute: samling af spots, en raekkefoelge af spots (saa vi ved hvordan vi skal tegne kortet), en beskrivelse, en teaser tekst.
 
@@ -27,6 +27,7 @@ class Spot
     property :sequence,     Integer
     #has n, :photos, :through => Resource
     has n, :routes, :through => Resource
+
 end
 
 class Route
@@ -79,7 +80,7 @@ configure do
   #@config = YAML::load( File.open( 'config/settings.yml' ) )
   #@connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
   #DataMapper.setup(:default, @connection)
-  DataMapper.auto_upgrade!
+  DataMapper.finalize
   #drops table and rebuilds
   #DataMapper.auto_migrate!
 
@@ -104,6 +105,17 @@ helpers do
       @pass = ENV['MY_SITE_SECRET']
       @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == [@user.to_s, @pass.to_s]
     end
+    
+    def slugalize(text, separator = "-")
+        re_separator = Regexp.escape(separator)
+        result = Unicode::decompose(text)
+        result.gsub!(/[^\x00-\x7F]+/, '')                      # Remove non-ASCII (e.g. diacritics).
+        result.gsub!(/[^a-z0-9\-_\+]+/i, separator)            # Turn non-slug chars into the separator.
+        result.gsub!(/#{re_separator}{2,}/, separator)         # No more than one of the separator in a row.
+        result.gsub!(/^#{re_separator}|#{re_separator}$/, '')  # Remove leading/trailing separator.
+        result.downcase!
+        result
+      end
 end
 
 get '/' do  
@@ -113,7 +125,9 @@ get '/' do
   haml :map
 end
 
-
+get '/test/:slug' do
+  slugalize(params[:slug])
+end
 
 get '/cloudmap' do
   @route = Route.first
@@ -141,7 +155,7 @@ end
 
 post '/spot/new' do
   @spot = Spot.new(
-    :slug       => params["slug"],
+    :slug       => slugalize(params["title"]),
     :title      => params["title"],
     :hashtag    => params["hashtag"],
     :teaser     => params["teaser"],
@@ -156,6 +170,8 @@ post '/spot/new' do
      @spot.routes << @route
      @spot.save
       redirect "/"
+  else
+    '/error'
   end
 end
 
@@ -190,6 +206,7 @@ end
 get '/spot/:slug' do
   cache_control :public, :max_age => 600
   @spot = Spot.first(:slug => params[:slug])
+  @title = @spot.title
   @route = @spot.routes.first
   
   @spots = Spot.all
@@ -260,24 +277,22 @@ get '/vimeo' do
 end
 
 get '/populate' do
-  protected!   
+  #protected!   
   @spot1 = Spot.first_or_create({:slug => 'carlsberg'},{
-          :slug         => 'carlsberg',
           :title        => 'Carlsberg',
           :teaser       => 'Oeller',
           :body         => 'En lang beskrivelse af dette fantastiske sted, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dapibus odio a libero dapibus sit amet malesuada urna luctus. Integer eget metus mattis lacus scelerisque ultricies. Pellentesque cursus interdum purus, vestibulum viverra nulla mollis quis. Pellentesque dui orci, scelerisque ut rhoncus vel, scelerisque a est. Nam eget lectus lectus, sit amet aliquet eros. Nullam ac varius justo. Vestibulum sagittis fermentum urna sed accumsan. Nullam nisl ipsum, sodales non scelerisque vitae, dignissim sit amet felis. Praesent in magna et tortor sagittis consectetur porta vel risus. Nam sit amet feugiat velit. Vestibulum pretium posuere egestas. Sed est justo, euismod eu semper blandit, pulvinar at orci. Aenean facilisis volutpat sapien quis commodo. Suspendisse mollis placerat porttitor. Cras congue tellus a lorem rhoncus eu egestas nisi fermentum.',
-          :hashtag      => '#carlsberg',
+          :hashtag      => 'carlsberg',
           :address       => 'ydre vesterbro',      
           :lat          => '55.665',
           :long         => '12.529972',
           :sequence        => '1'}
           )
  @spot2 = Spot.first_or_create({:slug => 'islandsbrygge'},{
-         :slug         => 'islandsbrygge',
          :title        => 'Islandsbrygge',
          :teaser       => 'Ved havnen',
          :body         => 'En lang body tekst, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dapibus odio a libero dapibus sit amet malesuada urna luctus. Integer eget metus mattis lacus scelerisque ultricies. Pellentesque cursus interdum purus, vestibulum viverra nulla mollis quis. Pellentesque dui orci, scelerisque ut rhoncus vel, scelerisque a est. Nam eget lectus lectus, sit amet aliquet eros. Nullam ac varius justo. Vestibulum sagittis fermentum urna sed accumsan. Nullam nisl ipsum, sodales non scelerisque vitae, dignissim sit amet felis. Praesent in magna et tortor sagittis consectetur porta vel risus. Nam sit amet feugiat velit. Vestibulum pretium posuere egestas. Sed est justo, euismod eu semper blandit, pulvinar at orci. Aenean facilisis volutpat sapien quis commodo. Suspendisse mollis placerat porttitor. Cras congue tellus a lorem rhoncus eu egestas nisi fermentum.',
-         :hashtag      => '#islandsbrygge',
+         :hashtag      => 'islandsbrygge',
          :address       => 'Lige efter langbro',      
          :lat          => '55.6688',
          :long         => '12.5788',

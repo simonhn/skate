@@ -10,3 +10,5 @@ dm-migrations
 haml
 dm-mysql-adapter
 dm-postgres-adapter
+newrelic_rpm
+unicode

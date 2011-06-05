@@ -2,14 +2,14 @@
   %form{:method => 'post', :action => "/spot/#{@spot.new? ? 'new' : @spot.slug + '/edit'}"}
     %p
     %br
-      %label{:for => 'title'}Titel:
+      %label{:for => 'title'}Titel - skal være unik:
       %br
       %input{:type => 'text', :name => 'title', :value => @spot.title}
     %p
     %br
-      %label{:for => 'slug'}Url (maa ikke indeholde mellemrum, brug bindestreg istedet, og heller ingen special karakterer. skal vaere unik.):
+      %label{:for => 'hashtag'}Hash tag (maa ikke indeholde mellemrum, brug bindestreg istedet, og heller ingen special karakterer. skal vaere unik.):
       %br
-      %input{:type => 'text', :name => 'slug', :value => @spot.slug}
+      %input{:type => 'text', :name => 'hashtag', :value => @spot.hashtag}
     %p
     %br
       %label{:for => 'teaser'}Kort beskrivelse:
