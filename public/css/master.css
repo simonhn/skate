@@ -239,6 +239,16 @@ span.zoom-icon{
   opacity: 0.5;
 }
 
+span.zoom-icon-yt{
+  position:absolute;
+  left:37%;
+  top:37%;
+  filter:alpha(opacity=50);
+  -moz-opacity:0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+}
+
 a.gallerypic{
   position:relative;
   display:block;
