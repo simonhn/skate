@@ -3,8 +3,6 @@
     %section{:id => 'contents'}
       %h2
         %a{:href => "/spot/new"} add new spot
-      %h2
-        %a{:href => "/route/new"} add new route
       %h2 ALL SPOTS
       - @spots.each do |spot|
         %h3 #{spot.title}
@@ -19,3 +17,5 @@
       - @routes.each do |route|
         %h3 #{route.title}
         %a{:href => "/route/#{route.slug}/edit"} edit
+        %br
+        %br
