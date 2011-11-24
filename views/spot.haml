@@ -4,7 +4,6 @@
     function(data){
       var movies = data["data"]["items"];
       if(movies == null || movies == 0){
-        alert('Sorry, no trailer is available for this title.');
       }else{
         //load the trailer
         for (var i = 0; i < movies.length; i++) {
@@ -38,7 +37,8 @@
         $('<a href="' +url_b+'" rel="hat" class="gallerypic"><img alt="jat" width="160" height="120" class="spot" src="'+url_m+'"></img><span class="zoom-icon"><img src="/images/FlickrSmall.png" alt="Zoom" width="160" height="120" /></span></a>').fancybox().appendTo("#foto");
       
       });
-      $('<div class="downarrowdiv contribute"><h3>Contribute</h3><div>If you have any content online for this spot you can make it available for this site. The "live feed" section of this site is fetched off the web. All you need to do is tag you content with "skateboard" and the following keyword: "#{@spot.hashtag}"</div></div>').appendTo("#foto");
+
+      $('<div class="downarrowdiv contribute"><h3>Contribute</h3><div>If you have any content online for this spot you can make it available for this site. The "live feed" section of this site is fetched off the web. All you need to do is tag your content with "skateboard" and the following keyword: "#{@spot.hashtag}"</div></div>').appendTo("#foto");
     }
   );
     $.getJSON("http://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=f65cddc72218d6629231015dbba534ab&group_id=1695312%40N23&tags=#{@spot.hashtag}&extras=tags&format=json&jsoncallback=?",
@@ -80,7 +80,7 @@
         %script{:src => "http://connect.facebook.net/en_US/all.js#xfbml=1"}
         %fb:like{:href=>"", :send=>"false", :width=>"250", :show_faces=>"false", :font=>""}
     %div.grey
-      %div Share this spot with a friend
+      %div Share this spot with your friends
       %span.st_facebook_button{:displayText=>'Facebook'}
       %span.st_twitter_button{:displayText=>'Tweet'}
       %span.st_email_button{:displayText=>'Email'}

@@ -1,7 +1,11 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
-require 'datamapper'
+require 'dm-core'
+require 'dm-serializer'
+require 'dm-timestamps'
+require 'dm-aggregates'
+require 'dm-migrations'
 require 'flickraw-cached'
 #require 'vimeo'
 require 'builder'
@@ -75,11 +79,11 @@ configure do
   #setup MySQL connection:  
   
   #DataMapper::Logger.new('log/datamapper.log', :debug)
-  DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://pav.db')
+  #DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://pav.db')
   
-  #@config = YAML::load( File.open( 'config/settings.yml' ) )
-  #@connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
-  #DataMapper.setup(:default, @connection)
+  @config = YAML::load( File.open( 'config/settings.yml' ) )
+  @connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
+  DataMapper.setup(:default, @connection)
   DataMapper.finalize
   #drops table and rebuilds
   #DataMapper.auto_migrate!
@@ -148,7 +152,7 @@ get '/spot/:slug/delete' do
   
   @spot = Spot.first(:slug => params[:slug])
   @spot.routes.destroy
-  @spot.photos.destroy
+  #@spot.photos.destroy
   @spot.destroy!
   redirect '/'
 end

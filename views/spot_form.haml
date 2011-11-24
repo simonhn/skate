@@ -22,6 +22,12 @@
       %textarea{:name => 'body', :rows => 15, :cols => 88}= @spot.body
     %p
     %br
+      %label{:for => 'address'}Adresse:
+      %br
+      %input{:type => 'text', :name => 'address', :value => @spot.address}
+    %p
+
+    %br
       Koordinater: (brug evt findvej.dk til at finde koordinater)
       %br
       %label{:for => 'lat'}Breddegrad (55 osv):
