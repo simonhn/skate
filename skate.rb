@@ -43,12 +43,12 @@ configure do
   #DataMapper::Logger.new('log/datamapper.log', :debug)
   
   #setup MySQL connection:  
-  #DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://pav.db')
+  DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://pav.db')
   
   #for localhost db connection
-  @config = YAML::load( File.open( 'config/settings.yml' ) )
-  @connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
-  DataMapper.setup(:default, @connection)
+  #@config = YAML::load( File.open( 'config/settings.yml' ) )
+  #@connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
+  #DataMapper.setup(:default, @connection)
   
   DataMapper.finalize
   
