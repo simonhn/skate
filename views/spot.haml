@@ -7,7 +7,6 @@
       }else{
         //load the trailer
         for (var i = 0; i < movies.length; i++) {
-          console.log(movies[i]);
           yt_url = 'http://www.youtube.com/watch?v='+movies[i].id+'&feature=player_embedded#at=41';
           yt_embed = yt_url.replace(new RegExp("watch\\?v=", "i"), 'v/')
           //yt_url = 'http://www.youtube.com/v/' + movies[i].id + '&amp;fs=1&feature=player_embedded';
@@ -62,12 +61,8 @@
        
     var place = (#{@spot.to_json});
 
-     map.init();
-     $.get('/georss.json', function(json){
-       data = $.parseJSON(json);
-       calcRoute(data);
-       
-       });
+     initialize();
+     displaySmall(place.slug, $('#placeDetails'));
      var switchTo5x=true;
      stLight.options({publisher:'1bef05f7-1745-4681-a2b4-74155bc4ae0a'});
      $(".directions a").attr("href", "http://maps.google.dk/maps?hl=da&z=14&saddr=&daddr="+place["lat"]+","+place["long"]);
@@ -90,7 +85,7 @@
     %article.overview
       %img{:width => 640, :height => 427, :class => 'portrait'}
       %ul.image_thumb
-      %h2.title= '#'+ @spot.sequence.to_s + ' '+ @spot.title
+      %h2.title= @spot.title
       %p.teaser= @spot.teaser
       - if @spot.published_at
         %time{:datetime => @spot.published_at.strftime("%Y-%m-%d")}= @spot.published_at.strftime("%b %d, %Y")

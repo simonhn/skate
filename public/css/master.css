@@ -56,9 +56,6 @@ header, nav, #wrapper{
   
 }
 
-#map_canvas{
-  margin-bottom:30px;
-}
 
 #footer_wrapper{
   background-color: #82358C;
@@ -90,17 +87,12 @@ text-transform: uppercase;
 }
 h1 a {
 background-color: transparent;
-font-size: 400%;
-color: #000;
-font-family:"Crimson Text","SketchRockwellRegular";
-text-decoration: none ;
+font-size: 150%;
+color: white;
+text-transform: none;
+
 }
 
-nav a {
-background-color: transparent;
-color: #fe2e9a;
-font-family:"Crimson Text","SketchRockwellRegular";
-}
 
 h1 a:hover, nav a:hover {
 color: #000 !important;
@@ -354,6 +346,19 @@ legend.in-reply-to-text {
   width: 960px;
   margin:auto;
 }
+.arrow-up-wrapper{
+   position: relative;
+}
+.arrow-up {
+   position: absolute;
+   width: 0;
+   height: 0;
+   border-left: 20px solid transparent;
+   border-right: 20px solid transparent;
+   border-bottom: 20px solid rgba(130, 53, 140, 0.9);
+   top: -20px;
+   left: 40px;
+}
 
 
 .downarrowdiv:after{ /*arrow added to downarrowdiv DIV*/
@@ -399,4 +404,40 @@ border-width: 20px;
 .footer_inner{
   width: 960px;
   margin: auto;
+}
+
+
+.map { 
+
+  /* The following are required to allow absolute positioning of the
+   * info window at the bottom right of the map, and for it to be hidden
+   * when it is "off map" 
+   */
+  position: relative; 
+  overflow: hidden;
+  
+  margin-bottom: 30px;
+}
+#placeDetails { 
+  position: absolute;
+  width: 300px;
+  bottom: 0;
+  right: -320px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  /* Semi-transparent background */
+  background-color: rgba(130, 53, 140, 0.9);
+  color: white;
+  font-size: 80%;
+
+}
+
+/* Fit the text nicely inside the box */
+.map h1 {
+  margin-bottom: 0;
+  color:white;
+}
+#placeDetails p {
+  margin-top: 0;
 }

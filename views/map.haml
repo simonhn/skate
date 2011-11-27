@@ -1,36 +1,16 @@
 :javascript
-  function drawMarker(place, map){
-    var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(place["lat"], place["long"]),
-      map: map, 
-      title: "name"
-      });
-      var photo = ""
-      if(place["photos"]["0"] != null){
-        var photo = '<img src="'+place["photos"]["0"]["url_s"]+'"/>'
-      }
-      var contentString = '<div class="infowindow"><span><a href="/spot/' + place["slug"] + '">' + place["title"] + '</a></span>' + "<br>" + place["teaser"] + '<br>'+photo+'</div>';
-      var infowindow = new google.maps.InfoWindow({
-        content: contentString
-      });
-
-      google.maps.event.addListener(marker, 'click', function() {
-          infowindow.open(map, marker);
-      });
-
-      return marker;
-    }
-    
-    $(document).ready(function(){
-      map.init();
-      $.get('/georss.json', function(json){
-        data = $.parseJSON(json);
-        calcRoute(data);
-        
-        });
-    });
+  $(document).ready(function(){
+  initialize();
+  displayLarge($('#placeDetails'));
+  });
 %div{:id => 'wrapper'}
-  %div{:id=>'map_canvas', :style=>"height:500px;width:960px;border:solid 1px #ccc;"}
+  %div.map
+    %div{:id=>'map_canvas', :style=>"height:500px;width:960px;border:solid 1px #ccc;"}
+    %div{:id=>'placeDetails'}
+      %div.arrow-up-wrapper
+        %div.arrow-up
+      %h1
+      %p
   %div
     %h2= @route.title
     %p= textile(@route.body)

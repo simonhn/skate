@@ -16,15 +16,13 @@ class Spot
     property :id,           Serial, :key => true
     property :slug,         String
     property :title,        String
-    property :teaser,       String, :length => 100
+    property :teaser,       String
     property :body,         Text
     property :published_at, DateTime
     property :hashtag,      String, :length => 150
     property :address,      String, :length => 150
-    property :lat,          Float
-    property :long,         Float
-    property :sequence,     Integer
-    has n, :routes, :through => Resource
+    property :lat,          Decimal, :precision => 9, :scale => 6
+    property :long,         Decimal, :precision => 9, :scale => 6
 end
 
 class Route
@@ -35,14 +33,13 @@ class Route
     property :teaser,      String, :length => 100
     property :body,     Text
     property :published_at, DateTime
-    has n, :spots, :through => Resource
 end
 
 configure do
   #logging:
   #DataMapper::Logger.new('log/datamapper.log', :debug)
   
-  #setup MySQL connection:  
+  #setup MySQL connection on Heroku:  
   DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://pav.db')
   
   #for localhost db connection
@@ -71,7 +68,7 @@ helpers do
 
    def authorized?
       @auth ||=  Rack::Auth::Basic::Request.new(request.env)
-      @user =  ENV['MY_SITE_USERNAME']
+      @user = ENV['MY_SITE_USERNAME']
       @pass = ENV['MY_SITE_SECRET']
       @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == [@user.to_s, @pass.to_s]
    end
@@ -89,10 +86,19 @@ helpers do
    
 end
 
+# Error 404 Page Not Found
+not_found do
+   'This is nowhere to be found.'
+end
+
+error do
+   'Sorry there was a nasty error - ' + env['sinatra.error'].name
+ end
+
 get '/' do  
-  cache_control :public, :max_age => 600
+  #cache_control :public, :max_age => 600
   @route = Route.first
-  @spots = @route.spots
+  @spots = Spot.all
   haml :map
 end
 
@@ -104,15 +110,13 @@ end
 get '/spot/new' do
   protected!
   @spot = Spot.new(params)
-  @routes = Route.all
   haml :spot_form
 end
 
 get '/spot/:slug/delete' do
   protected! 
   @spot = Spot.first(:slug => params[:slug])
-  @spot.routes.destroy
-  #@spot.photos.destroy
+  raise not_found unless @spot
   @spot.destroy!
   redirect '/'
 end
@@ -123,15 +127,12 @@ post '/spot/new' do
     :title      => params["title"],
     :hashtag    => params["hashtag"],
     :teaser     => params["teaser"],
+    :address    => params["address"],
     :body       => params["body"],
     :lat        => params["lat"],
     :long       => params["long"],
-    :sequence   => params["sequence"]
   )
-  
   if @spot.save
-     @route = Route.first(:slug => params[:route])
-     @spot.routes << @route
      @spot.save
       redirect "/"
   else
@@ -143,31 +144,30 @@ get '/spot/:slug/edit' do
   protected! 
   @spot = Spot.first(:slug => params[:slug])
   raise not_found unless @spot
-  @routes = Route.all
   haml :spot_form
 end
 
 post '/spot/:slug/edit' do
   @spot = Spot.first(:slug => params[:slug])
-  raise not_found unless @spot
+  raise error unless @spot
   @spot.attributes = {
     :title      => params["title"],
     :hashtag    => params["hashtag"],
+    :address    => params["address"],
     :teaser     => params["teaser"],
     :body       => params["body"],
     :lat        => params["lat"],
-    :long       => params["long"],
-    :sequence   => params["sequence"]
+    :long       => params["long"]
   }    
   @spot.save
   redirect "/spot/#{@spot.slug}"
 end
 
 get '/spot/:slug' do
-  cache_control :public, :max_age => 600
+  #cache_control :public, :max_age => 600
   @spot = Spot.first(:slug => params[:slug])
+  raise not_found unless @spot
   @title = @spot.title
-  @route = @spot.routes.first  
   @spots = Spot.all
   @map = @spot.to_json
   haml :spot
@@ -200,7 +200,7 @@ get '/admin' do
 end
 
 get '/georss.json' do
-   cache_control :public, :max_age => 600
-   @spots = Spot.all(:order => [:sequence.asc])
+   #cache_control :public, :max_age => 600
+   @spots = Spot.all
    @spots.to_json
 end

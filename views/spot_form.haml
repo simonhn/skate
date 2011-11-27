@@ -26,30 +26,19 @@
       %br
       %input{:type => 'text', :name => 'address', :value => @spot.address}
     %p
-
-    %br
-      Koordinater: (brug evt findvej.dk til at finde koordinater)
+    %br<
+      Koordinater: (brug evt 
+      %a{:href => 'http://www.getlatlon.com'} http://www.getlatlon.com
+      til at finde koordinater)
       %br
-      %label{:for => 'lat'}Breddegrad (55 osv):
+      %label{:for => 'lat'}Breddegrad (55.69 osv, husk punktum, ikke komma):
       %br
       %input{:type => 'text', :name => 'lat', :value => @spot.lat}
     %p
     %br
-      %label{:for => 'long'}Længdegrad (12 osv):
+      %label{:for => 'long'}Længdegrad (12.58 osv, husk punktum, ikke komma):
       %br
       %input{:type => 'text', :name => 'long', :value => @spot.long}
-    %p
-    %br
-      %label{:for => 'sequence'}Spot nummer (bestemmer raekkefoelgen paa kortet):
-      %br
-      %input{:type => 'text', :name => 'sequence', :value =>  @spot.sequence}
-    %p
-    %br
-      %label{:for => 'status'}Rute:
-      %br
-      %select{:name => 'route'}
-        - @routes.each do |route|
-          %option{:value => route.slug, :selected => route.slug}= route.slug
     %p
     %br
       %input{:type => 'submit', :value => "Gem"}
