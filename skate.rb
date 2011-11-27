@@ -130,7 +130,7 @@ post '/spot/new' do
     :address    => params["address"],
     :body       => params["body"],
     :lat        => params["lat"],
-    :long       => params["long"],
+    :long       => params["long"]
   )
   if @spot.save
      @spot.save
