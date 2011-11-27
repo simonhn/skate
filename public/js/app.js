@@ -2,8 +2,8 @@ var copenhagen = new google.maps.LatLng(55.676294, 12.568116);
 var bounds = new google.maps.LatLngBounds();
 var currentPlace = null;
 var icons = {
-  'skate':          'http://localhost:4567/images/skate.png',
-  'skate-selected': 'http://localhost:4567/images/skate-selected.png'
+  'skate':          'http://cphsk8map.dk/images/skate.png',
+  'skate-selected': 'http://cphsk8map.dk/images/skate-selected.png'
 }
 var map;
 
