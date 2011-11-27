@@ -33,12 +33,12 @@
       %br
       %label{:for => 'lat'}Breddegrad (55.69 osv, husk punktum, ikke komma):
       %br
-      %input{:type => 'text', :name => 'lat', :value => @spot.lat}
+      %input{:type => 'text', :name => 'lat', :value => @spot.lat.to_s('F')}
     %p
     %br
       %label{:for => 'long'}Længdegrad (12.58 osv, husk punktum, ikke komma):
       %br
-      %input{:type => 'text', :name => 'long', :value => @spot.long}
+      %input{:type => 'text', :name => 'long', :value => @spot.long.to_s('F')}
     %p
     %br
       %input{:type => 'submit', :value => "Gem"}
