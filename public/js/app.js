@@ -86,7 +86,7 @@ function displaySmall(slug,info)
       }
 
       google.maps.event.addListener(marker, 'click', function() {
-         var html = '<a href='+place.slug+'>'+place.title+'</a>';
+         var html = '<a href="/spot/'+place.slug+'">'+place.title+'</a>';
          html += '<p>'+place.teaser+'</p>';
          infowindow.setContent(html);
          infowindow.open(map, this);
