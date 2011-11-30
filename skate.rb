@@ -37,15 +37,15 @@ end
 
 configure do
   #logging:
-  DataMapper::Logger.new('log/datamapper.log', :debug)
+  #DataMapper::Logger.new('log/datamapper.log', :debug)
   
   #setup MySQL connection on Heroku:  
   DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://pav.db')
   
   #for localhost db connection
-  @config = YAML::load( File.open( 'config/settings.yml' ) )
-  @connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
-  DataMapper.setup(:default, @connection)
+  #@config = YAML::load( File.open( 'config/settings.yml' ) )
+  #@connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
+  #DataMapper.setup(:default, @connection)
   
   DataMapper.finalize
   
@@ -70,8 +70,8 @@ helpers do
 
    def authorized?
       @auth ||=  Rack::Auth::Basic::Request.new(request.env)
-      @user = 'admin'#ENV['MY_SITE_USERNAME']
-      @pass = 'admin'#ENV['MY_SITE_SECRET']
+      @user = ENV['MY_SITE_USERNAME']
+      @pass = ENV['MY_SITE_SECRET']
       @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == [@user.to_s, @pass.to_s]
    end
     
