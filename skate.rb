@@ -55,8 +55,6 @@ configure do
   FlickRaw.api_key="f65cddc72218d6629231015dbba534ab"
   FlickRaw.shared_secret="02b67bec287635c1"
   set :haml, {:format => :html5}
-  
-  set :static_cache_control, [:public, :max_age => 3600]
 end
 
 helpers do
