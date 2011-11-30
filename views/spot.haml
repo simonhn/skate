@@ -1,22 +1,25 @@
 :javascript
   $(document).ready(function(){ 
-    var place = (#{@spot.to_json});
-   
+    var slug = "#{@spot.slug}";
+    var hashtag = "#{@spot.hashtag}";
+    var lat = "#{@spot.lat.to_s("F")}";
+    var long = "#{@spot.long.to_s("F")}";
+
    //assets 
-   fetchYoutube();
-   fetchFlickrThumbs(place.hashtag);
-   fetchFlickr(place.hashtag);
+   fetchYoutube(hashtag);
+   fetchFlickrThumbs(hashtag);
+   fetchFlickr(hashtag);
    
    //google maps
    initializeMap();
-   displayMap(place.slug, $('#placeDetails'));
+   displayMap(slug, $('#placeDetails'));
    
    //sharethis
    var switchTo5x=true;
    stLight.options({publisher:'1bef05f7-1745-4681-a2b4-74155bc4ae0a'});
    
    //directions link
-   $(".directions a").attr("href", "http://maps.google.dk/maps?hl=da&z=14&saddr=&daddr="+place["lat"]+","+place["long"]);
+   $(".directions a").attr("href", "http://maps.google.dk/maps?hl=da&z=14&saddr=&daddr="+lat+","+long);
   }); 
 %div{:id => 'wrapper'}
   %aside{:id => 'sidebar'}

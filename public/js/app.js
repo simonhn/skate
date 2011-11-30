@@ -103,9 +103,9 @@ function displayMap(slug,info)
    });
 }
 
-function fetchYoutube()
+function fetchYoutube(tags)
 {
-   $.getJSON("http://gdata.youtube.com/feeds/api/videos?v=2&alt=jsonc&q=skateboard+#{@spot.hashtag}&category=Sports%2Cskateboard&max-results=10&format=5&orderby=relevance&callback=?",
+   $.getJSON("http://gdata.youtube.com/feeds/api/videos?v=2&alt=jsonc&q=skateboard+"+tags+"&category=Sports%2Cskateboard&max-results=10&format=5&orderby=relevance&callback=?",
  function(data){
    var movies = data["data"]["items"];
    if(movies == null || movies == 0){
