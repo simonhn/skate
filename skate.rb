@@ -37,15 +37,15 @@ end
 
 configure do
   #logging:
-  #DataMapper::Logger.new('log/datamapper.log', :debug)
+  DataMapper::Logger.new('log/datamapper.log', :debug)
   
   #setup MySQL connection on Heroku:  
   DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://pav.db')
   
   #for localhost db connection
-  #@config = YAML::load( File.open( 'config/settings.yml' ) )
-  #@connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
-  #DataMapper.setup(:default, @connection)
+  @config = YAML::load( File.open( 'config/settings.yml' ) )
+  @connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
+  DataMapper.setup(:default, @connection)
   
   DataMapper.finalize
   
@@ -55,6 +55,8 @@ configure do
   FlickRaw.api_key="f65cddc72218d6629231015dbba534ab"
   FlickRaw.shared_secret="02b67bec287635c1"
   set :haml, {:format => :html5}
+  
+  set :static_cache_control, [:public, :max_age => 3600]
 end
 
 helpers do
@@ -68,8 +70,8 @@ helpers do
 
    def authorized?
       @auth ||=  Rack::Auth::Basic::Request.new(request.env)
-      @user = ENV['MY_SITE_USERNAME']
-      @pass = ENV['MY_SITE_SECRET']
+      @user = 'admin'#ENV['MY_SITE_USERNAME']
+      @pass = 'admin'#ENV['MY_SITE_SECRET']
       @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == [@user.to_s, @pass.to_s]
    end
     
@@ -109,6 +111,7 @@ end
 
 get '/spot/new' do
   protected!
+  puts params.inspect
   @spot = Spot.new(params)
   haml :spot_form
 end
