@@ -17,8 +17,11 @@
       %textarea{:name => 'teaser', :rows => 5, :cols => 88}= @spot.teaser
     %p
     %br
-      %label{:for => 'body'}Lang beskrivelse:
-      %br
+      %label{:for => 'body'}Lang beskrivelse. 
+      %p<
+      I teksten kan du lave overskrifter, link, bulletpoints osv. hvis du foelger 
+      %a{:href => 'http://redcloth.org'}textile
+      formatet
       %textarea{:name => 'body', :rows => 15, :cols => 88}= @spot.body
     %p
     %br
