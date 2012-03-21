@@ -147,7 +147,7 @@ function fetchFlickr(tags)
       
       });
 
-      $('<div class="downarrowdiv contribute"><h3>Contribute</h3><p>If you have any content online for this spot you can make it available for this site. The "live feed" section of this site is fetched off the web. All you need to do is tag your content with "skateboard" and the following keyword: "'+tags+'"</div></p>').appendTo("#foto");
+      $('<div class="downarrowdiv contribute"><h3>Contribute</h3><p>If you have any content online for this spot you can make it available for this site. The "live feed" section of this site is fetched off the web. All you need to do is tag your content with "skateboard" and the following keyword: "'+tags+'"</p></div>').appendTo("#foto");
     }
   );
 }
