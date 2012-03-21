@@ -116,7 +116,7 @@ function fetchYoutube(tags)
        yt_embed = yt_url.replace(new RegExp("watch\\?v=", "i"), 'v/')
        //yt_url = 'http://www.youtube.com/v/' + movies[i].id + '&amp;fs=1&feature=player_embedded';
        yt_img_url = movies[i].thumbnail.hqDefault;
-       $('<a href="' +yt_url+'" rel="vidbox" class="gallerypic"><img alt="jat" width="160" height="120" class="spot" src="'+yt_img_url+'"></img><span class="zoom-icon-yt"><img src="/images/yt_icon.png" alt="Zoom" width="36" height="25" /></span></a>').fancybox({
+       $('<a href="' +yt_url+'" rel="vidbox" class="gallerypic"><img alt="jat" width="156" height="118" class="spot" src="'+yt_img_url+'"></img><span class="zoom-icon-yt"><img src="/images/yt_icon.png" alt="Zoom" width="36" height="25" /></span></a>').fancybox({
      			'padding'		: 0,
            'width'		: 680,
      			'height'		: 495,
@@ -143,11 +143,11 @@ function fetchFlickr(tags)
         var url_m = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+"_m.jpg";
         var url = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+".jpg";
         var url_b = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+"_b.jpg";
-        $('<a href="' +url_b+'" rel="hat" class="gallerypic"><img alt="jat" width="160" height="120" class="spot" src="'+url_m+'"></img><span class="zoom-icon"><img src="/images/FlickrSmall.png" alt="Zoom" width="160" height="120" /></span></a>').fancybox().appendTo("#foto");
+        $('<a href="' +url_b+'" rel="hat" class="gallerypic"><img alt="jat" width="156" height="118" class="spot" src="'+url_m+'"></img><span class="zoom-icon"><img src="/images/FlickrSmall.png" alt="Zoom" width="156" height="118" /></span></a>').fancybox().appendTo("#foto");
       
       });
 
-      $('<div class="downarrowdiv contribute"><h3>Contribute</h3><div>If you have any content online for this spot you can make it available for this site. The "live feed" section of this site is fetched off the web. All you need to do is tag your content with "skateboard" and the following keyword: "'+tags+'"</div></div>').appendTo("#foto");
+      $('<div class="downarrowdiv contribute"><h3>Contribute</h3><p>If you have any content online for this spot you can make it available for this site. The "live feed" section of this site is fetched off the web. All you need to do is tag your content with "skateboard" and the following keyword: "'+tags+'"</div></p>').appendTo("#foto");
     }
   );
 }
@@ -162,7 +162,6 @@ function fetchFlickrThumbs(tags)
            var url = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+".jpg";
            var url_b = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+"_b.jpg";
            var substr = item.tags.split(' ');
-          
            $.each(substr, function(j, item){
 			 if(item=='main'){
 				 $(".portrait").attr({ src: url });

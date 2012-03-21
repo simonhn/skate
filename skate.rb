@@ -43,9 +43,9 @@ configure do
   DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://pav.db')
   
   #for localhost db connection
-  #@config = YAML::load( File.open( 'config/settings.yml' ) )
-  #@connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
-  #DataMapper.setup(:default, @connection)
+  # @config = YAML::load( File.open( 'config/settings.yml' ) )
+  # @connection = "#{@config['adapter']}://#{@config['username']}:#{@config['password']}@#{@config['host']}/#{@config['database']}";
+  # DataMapper.setup(:default, @connection)
   
   DataMapper.finalize
   
@@ -55,6 +55,7 @@ configure do
   FlickRaw.api_key="f65cddc72218d6629231015dbba534ab"
   FlickRaw.shared_secret="02b67bec287635c1"
   set :haml, {:format => :html5}
+
   #set :static_cache_control, [:public, :max_age => 300]
 end
 
@@ -111,6 +112,7 @@ end
 get '/spot/new' do
   protected!
   puts params.inspect
+  @spots = Spot.all 
   @spot = Spot.new(params)
   haml :spot_form
 end
@@ -143,7 +145,8 @@ post '/spot/new' do
 end
 
 get '/spot/:slug/edit' do
-  protected! 
+  protected!
+  @spots = Spot.all
   @spot = Spot.first(:slug => params[:slug])
   raise not_found unless @spot
   haml :spot_form
@@ -177,13 +180,14 @@ end
 
 get '/route/:slug/edit' do
   protected!
+  @spots = Spot.all
   @route = Route.first(:slug => params[:slug])
   raise not_found unless @route
   haml :route_form
 end
 
 post '/route/:slug/edit' do
-  @route = Route.first(:slug => params[:slug])
+  @route = Route.first()
   raise not_found unless @route
   @route.attributes = {
     :title      => params["title"],

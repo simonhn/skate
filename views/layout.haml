@@ -1,29 +1,52 @@
-%html
-  %head
-    %title #{"#{@title} : " if @title}CPH SK8 MAP
-    %link{:href => "/css/master.css", :rel => 'stylesheet', :type => 'text/css'}
-    %link{:href => "/fancybox/jquery.fancybox-1.3.2.css", :media => 'screen', :rel => 'stylesheet', :type => 'text/css'}
-    %link{:href => "/css/videobox.css", :media => 'screen', :rel => 'stylesheet', :type => 'text/css'}
-    %script{:type => "text/javascript", :src => "http://maps.google.dk/maps/api/js?sensor=false&language=da&region=dk"}
-    %script{:type=>"text/javascript", :src=>"https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"}
-    %script{:type=>"text/javascript", :src=>"/js/jquery.swfobject.js"}
-    %script{:type=>"text/javascript", :src=>"/fancybox/jquery.fancybox-1.3.2.js"}
-    %script{:type=>"text/javascript", :src=>"http://w.sharethis.com/button/buttons.js"}
-    %script{:type=>"text/javascript", :src=>"/js/app.js"}
-
-    %link{:href=>'http://fonts.googleapis.com/css?family=Crimson+Text&subset=latin', :rel=>'stylesheet', :type=>'text/css'}	
-  %body
-    %header
-      %a{:href => "/", :title => "en guide til skating i cph."}
-        %img{:src => "/images/logo.png"}
-      -#%h1
-        -#%a{:href => "/", :title => "en guide til skating i cph."} copenhagen spot guide
-    = yield
+!!! 5
+%head
+  %meta{:charset => "utf-8"}
+  %title #{"#{@title} : " if @title}CPH SK8 MAP
+  %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1", :name => "viewport"}
+  %link{:href => "/css/base.css", :rel => "stylesheet"}
+  %link{:href => "/css/skeleton.css", :rel => "stylesheet"}
+  %link{:href => "/css/master.css", :rel => 'stylesheet', :type => 'text/css'}
+  %link{:href => "/fancybox/jquery.fancybox-1.3.2.css", :media => 'screen', :rel => 'stylesheet', :type => 'text/css'}
+  %link{:href => "/css/videobox.css", :media => 'screen', :rel => 'stylesheet', :type => 'text/css'}
+  %script{:type => "text/javascript", :src => "http://maps.google.dk/maps/api/js?sensor=false&language=da&region=dk"}
+  %script{:type=>"text/javascript", :src=>"https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"}
+  %script{:type=>"text/javascript", :src=>"/js/jquery.swfobject.js"}
+  %script{:type=>"text/javascript", :src=>"/fancybox/jquery.fancybox-1.3.2.js"}
+  %script{:type=>"text/javascript", :src=>"http://w.sharethis.com/button/buttons.js"}
+  %script{:type=>"text/javascript", :src=>"/js/app.js"}
+  %link{:href=>'http://fonts.googleapis.com/css?family=Crimson+Text&subset=latin', :rel=>'stylesheet', :type=>'text/css'}	
+%body
+  .container
+    .sixteen.columns
+      %header
+        %a{:href => "/", :title => "en guide til skating i cph."}
+          %img{:src => "/images/logo.png"}
+        -#%h1
+          -#%a{:href => "/", :title => "en guide til skating i cph."} copenhagen spot guide
+      = yield
+  %div{:id => 'footer_wrapper'}
+    %footer.container
+      %div.arrow_wrapper
+        %div.arrow-down
+      %div.footer_inner.sixteen.columns
+        %div{:id => 'footer_left', :class=>'six columns alpha'}
+          %h2 BROUGHT TO YOU BY
+          %ul
+            %li Copenhagen Skatepark
+            %li Enghavevej 80
+            %li Copenhagen SV
+            %li <a href="http://www.copenhagenskatepark.dk">copenhagenskatepark.dk</a>
+        %div{:id => 'footer_right', :class=>'ten columns omega'}
+          %h2 ALL SPOTS
+          %ul
+            - @spots.each do |spot|
+              %li
+                %a{:href => "/spot/#{spot.slug}"} #{spot.title}
+  
     :javascript 
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-23699811-1']);
       _gaq.push(['_trackPageview']);
-
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';

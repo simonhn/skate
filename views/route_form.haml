@@ -1,9 +1,5 @@
-%div{:id => 'wrapper'}
+%div.container
   %form{:method => 'post', :action => "/route/#{@route.new? ? 'new' : @route.slug + '/edit'}"}
-    %p
-      %label{:for => 'slug'}Slug:
-      %br
-      %input{:type => 'text', :name => 'slug', :value => @route.slug}
     %p
       %label{:for => 'title'}Title:
       %br

@@ -3,32 +3,8 @@
    initializeMap();
    displayMap($('#placeDetails'));
   });
-%div{:id => 'wrapper'}
-  %div.map
-    %div{:id=>'map_canvas', :style=>"height:500px;width:960px;border:solid 1px #ccc;"}
-    %div{:id=>'placeDetails'}
-      %div.arrow-up-wrapper
-        %div.arrow-up
-      %h1
-      %p
-  %div
-    %h2= @route.title
-    %p= textile(@route.body)
-%div{:id => 'footer_wrapper'}
-  %div.arrow_wrapper
-    %div.arrow-down  
-  %footer
-    %div.footer_inner
-      %div{:id => 'footer_left'}
-        %h2 BROUGHT TO YOU BY
-        %ul
-          %li Copenhagen Skatepark
-          %li Enghavevej 80
-          %li Copenhagen SV
-          %li <a href="http://www.copenhagenskatepark.dk">copenhagenskatepark.dk</a>
-      %div{:id => 'footer_right'}
-        %h2 ALL SPOTS
-        %ul
-          - @spots.each do |spot|
-            %li
-              %a{:href => "/spot/#{spot.slug}"} #{spot.title}
+.map
+  %div{:id=>'map_canvas', :style=>"height:500px;width:100%;border:solid 1px #ccc;"}
+%div
+  %h2= @route.title
+  %p= textile(@route.body)
