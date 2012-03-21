@@ -74,16 +74,16 @@ function displayMap(slug,info)
         position: new google.maps.LatLng(place.lat, place.long),
         map:      map,
         title:    place.title,
-        icon: icons["skate"],
+        // icon: icons["skate"],
         clickable: true
       });
       bounds.extend(new google.maps.LatLng(place.lat, place.long));
       map.fitBounds(bounds);
-      if(place.slug === slug){
-         marker.setIcon(icons['skate-selected']);
-         //var latLng = marker.getPosition(); // returns LatLng object
-         //map.setCenter(latLng); // setCenter takes a LatLng object         
-      }
+      // if(place.slug === slug){
+      //    marker.setIcon(icons['skate-selected']);
+      //    var latLng = marker.getPosition(); // returns LatLng object
+      //    map.setCenter(latLng); // setCenter takes a LatLng object         
+      // }
 
       google.maps.event.addListener(marker, 'click', function() {
          var html = '<a href="/spot/'+place.slug+'">'+place.title+'</a>';
@@ -93,10 +93,10 @@ function displayMap(slug,info)
          
         var hidingMarker = currentPlace;
         
-        marker.setIcon(icons['skate-selected']);
-        if (currentPlace) {
-          currentPlace.setIcon(icons['skate']);
-        } 
+        // marker.setIcon(icons['skate-selected']);
+        //         if (currentPlace) {
+        //           currentPlace.setIcon(icons['skate']);
+        //         } 
         currentPlace = marker;
       });
     });
@@ -161,12 +161,15 @@ function fetchFlickrThumbs(tags)
            var url_m = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+"_m.jpg";
            var url = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+".jpg";
            var url_b = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+"_b.jpg";
-           if(i==0){$(".portrait").attr({ src: url });}
-           var substr = item.tags.split(' ');           
+           var substr = item.tags.split(' ');
+          
            $.each(substr, function(j, item){
-             if(item == 'spotadmin'){             
-               $('<a href="'+url_b+'" class="gallerypic"><img alt="jat" height="50px" width="50px" class="spot" src="'+url_m+'"></img></a>').fancybox().appendTo(".image_thumb");
-             }
+			 if(item=='main'){
+				 $(".portrait").attr({ src: url });
+			 }
+             if(item == 'spotadmin' || item == 'SpotAdmin'){
+				 $('<a href="'+url_b+'" rel="kat" class="gallerypic"><img alt="jat" height="50px" width="50px" class="spot" src="'+url_m+'"></img></a>').fancybox().appendTo(".image_thumb");	
+			 }
            });           
          });         
        });
