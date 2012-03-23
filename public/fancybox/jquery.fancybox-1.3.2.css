@@ -177,6 +177,16 @@
 	visibility: visible;    /* IE6 */
 }
 
+#fancybox-left span {
+	left: 20px;
+}
+
+#fancybox-right span {
+	left: auto;
+	right: 20px;
+}
+
+
 #fancybox-left:hover span {
 	left: 20px;
 }

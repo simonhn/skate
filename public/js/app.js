@@ -18,7 +18,19 @@ function initializeMap() {
    }
    map = new google.maps.Map($("#map_canvas")[0], mapOptions);
    infowindow = new google.maps.InfoWindow({
-   });   
+   });
+   var center;
+   function calculateCenter() {
+     center = map.getCenter();
+   }
+   
+   google.maps.event.addDomListener(map, 'idle', function() {
+     calculateCenter();
+   });
+   google.maps.event.addDomListener(window, 'resize', function() {
+     map.setCenter(center);
+   });
+   
 }
 
     
