@@ -94,6 +94,7 @@ function displayMap(slug,info)
       if(place.slug === slug){
 		  marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
 		  marker.setShadow(new google.maps.MarkerImage('http://maps.gstatic.com/mapfiles/shadow50.png', null, null, new google.maps.Point(10, 34)));
+		  marker.setZIndex(100);
 		  // var latLng = marker.getPosition(); // returns LatLng object
 		  // map.setCenter(latLng); // setCenter takes a LatLng object
 	  }
