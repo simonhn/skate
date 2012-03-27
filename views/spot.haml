@@ -31,7 +31,8 @@
       %time{:datetime => @spot.published_at.strftime("%Y-%m-%d")}= @spot.published_at.strftime("%b %d, %Y")
     %article.contents= textile(@spot.body)
 %aside{:id => 'sidebar', :class=>'five columns omega'}
-  %div{:id=>'map_canvas', :style=>"height:426px;width:100%;"}
+  .map
+    %div{:id=>'map_canvas', :style=>"height:426px;width:100%;"}
   %div.like
     %div{:id=>'fb-root'}
       %script{:src => "http://connect.facebook.net/en_US/all.js#xfbml=1"}
