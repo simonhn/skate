@@ -130,6 +130,9 @@
     /* Note: Design for a width of 320px */
 
     @media only screen and (max-width: 767px) {
+		.container header img{width:100px;}
+		.container .map{padding-left:20px;padding-right:20px;}
+		
         .container { width: 300px; }
         .container .columns,
         .container .column { margin: 0; }
@@ -180,6 +183,9 @@
     /* Note: Design for a width of 480px */
 
     @media only screen and (min-width: 480px) and (max-width: 767px) {
+		.container header img{width:100px;}
+		.container .map{padding-left:20px;padding-right:20px;}
+		
         .container { width: 420px; }
         .container .columns,
         .container .column { margin: 0; }
