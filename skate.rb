@@ -40,7 +40,7 @@ configure do
   #DataMapper::Logger.new('log/datamapper.log', :debug)
   
   #setup MySQL connection on Heroku:  
-  DataMapper.setup(:default, ENV['DATABASE_URL'] || 'mysql://pav.db')
+  DataMapper.setup(:default, 'postgres://pdhbnsdozjottb:kuwKJsSyBI9-OavtcMy9PxX0ai@ec2-54-243-239-50.compute-1.amazonaws.com:5432/d30thv7e7rfmsb' || ENV['DATABASE_URL'] || 'mysql://pav.db')
   
   #for localhost db connection
   # @config = YAML::load( File.open( 'config/settings.yml' ) )

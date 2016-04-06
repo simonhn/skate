@@ -119,14 +119,14 @@ function displayMap(slug,info)
 
 function fetchYoutube(tags)
 {
-   $.getJSON("http://gdata.youtube.com/feeds/api/videos?v=2&alt=jsonc&q=skateboard+"+tags+"&category=Sports%2Cskateboard&max-results=10&format=5&orderby=relevance&callback=?",
+   $.getJSON("https://gdata.youtube.com/feeds/api/videos?v=2&alt=jsonc&q=skateboard+"+tags+"&category=Sports%2Cskateboard&max-results=10&format=5&orderby=relevance&callback=?",
  function(data){
    var movies = data["data"]["items"];
    if(movies == null || movies == 0){
    }else{
      //load the trailer
      for (var i = 0; i < movies.length; i++) {
-       yt_url = 'http://www.youtube.com/watch?v='+movies[i].id+'&feature=player_embedded#at=41';
+       yt_url = 'https://www.youtube.com/watch?v='+movies[i].id+'&feature=player_embedded#at=41';
        yt_embed = yt_url.replace(new RegExp("watch\\?v=", "i"), 'v/')
        //yt_url = 'http://www.youtube.com/v/' + movies[i].id + '&amp;fs=1&feature=player_embedded';
        yt_img_url = movies[i].thumbnail.hqDefault;
@@ -150,7 +150,7 @@ function fetchYoutube(tags)
 
 function fetchFlickr(tags)
 {
-   $.getJSON("http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f65cddc72218d6629231015dbba534ab&tags="+tags+",skateboard&tag_mode=all&format=json&sort=interestingness-desc&jsoncallback=?",
+   $.getJSON("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f65cddc72218d6629231015dbba534ab&tags="+tags+",skateboard&tag_mode=all&format=json&sort=interestingness-desc&jsoncallback=?",
     function(data){
       $.each(data.photos.photo, function(i,item){
         var url_s = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+"_s.jpg";
@@ -168,7 +168,7 @@ function fetchFlickr(tags)
 
 function fetchFlickrThumbs(tags)
 {
-   $.getJSON("http://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=f65cddc72218d6629231015dbba534ab&group_id=1695312%40N23&tags="+tags+"&extras=tags&format=json&jsoncallback=?",
+   $.getJSON("https://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=f65cddc72218d6629231015dbba534ab&group_id=1695312%40N23&tags="+tags+"&extras=tags&format=json&jsoncallback=?",
        function(data) {         
          $.each(data.photos.photo, function(i,item){
            var url_s = "http://farm"+item.farm+".static.flickr.com/"+item.server+"/"+item.id+"_"+item.secret+"_s.jpg";
